@@ -1,10 +1,8 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
 use_frameworks!
 
 target 'swift' do
-
-
-  # Pods for swift
-
+  pod 'YogaKit', '~> 1.18.1'
+  pod 'IGListKit', '~> 4.0.0'
+  pod 'MaterialComponents/Dialogs'
+  pod 'MaterialComponents/Buttons'
 end
