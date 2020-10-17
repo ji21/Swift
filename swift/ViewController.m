@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SwiftViewController.h"
 
 @interface ViewController ()
 
@@ -14,12 +15,13 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
-    self.view.backgroundColor = color;
-};
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        SwiftViewController *swiftVC = [[SwiftViewController alloc] init];
+        [self addChildViewController:swiftVC];
+    }
+    return self;
+}
 
 
 @end
