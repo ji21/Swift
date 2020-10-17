@@ -21,7 +21,18 @@
     self.view.backgroundColor = color;
     self.navigationItem.title = @"Swift";
     //button from material design
-    MDCButton *button = [[MDCButton alloc] init];
+    MDCButton *_signupButton = [[MDCButton alloc] init];
+    _signupButton.backgroundColor = [UIColor clearColor];
+//    [_signupButton setBorderColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    _signupButton.layer.borderColor = [[UIColor redColor]CGColor];
+    _signupButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat widthOfButton = width*0.7;
+    CGFloat heightOfButton = height*0.06;
+    _signupButton.frame = CGRectMake((width-widthOfButton)*0.5, (height-heightOfButton)*0.85, widthOfButton, heightOfButton);
+    [_signupButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
+    [self.view addSubview:_signupButton];
 }
 
 @end
