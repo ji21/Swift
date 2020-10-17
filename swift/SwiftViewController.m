@@ -18,8 +18,6 @@
 
 - (void)pushAuthViewController {
     authViewController *authVC = [[authViewController alloc] init];
-
-    // do any setup you need for myNewVC
     [self.navigationController pushViewController:authVC animated:true];
 }
 

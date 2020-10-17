@@ -14,12 +14,18 @@
 
 @implementation authViewController
 
+- (void) backAction {
+    [self.navigationController popViewControllerAnimated:true];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
     self.view.backgroundColor = color;
+    UIBarButtonItem *_backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+    [self.navigationItem setLeftBarButtonItem:_backBtn];
 }
 
 /*
