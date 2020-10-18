@@ -1,1 +1,1 @@
-# IOS app written programtically in objective C
+# IOS app written programmatically in objective C
