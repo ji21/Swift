@@ -62,4 +62,8 @@
     [self.view addSubview:_signupButton];
 }
 
+-(void) viewWillAppear:(BOOL)animated {
+    self.navigationItem.title = @"Swift";
+}
+
 @end
