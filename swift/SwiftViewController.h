@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SwiftViewController : UIViewController
 
+//- (instancetype) signupBtn;
+
 @end
 
 NS_ASSUME_NONNULL_END

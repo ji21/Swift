@@ -14,12 +14,29 @@
 
 @end
 
+
 @implementation SwiftViewController
 
 - (void)pushAuthViewController {
     authViewController *authVC = [[authViewController alloc] init];
     [self.navigationController pushViewController:authVC animated:true];
 }
+
+//- (instancetype)signupBtn{
+//    MDCButton *_signupButton = [[MDCButton alloc] init];
+//    _signupButton.backgroundColor = [UIColor clearColor];
+//    [_signupButton setBorderColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [_signupButton setBorderColor:[UIColor clearColor] forState:UIControlStateHighlighted];
+//    [_signupButton setBorderWidth:2.0 forState:UIControlStateNormal];
+//    _signupButton.layer.cornerRadius = 30;
+//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+//    CGFloat widthOfButton = width*0.7;
+//    CGFloat heightOfButton = height*0.06;
+//    _signupButton.frame = CGRectMake((width-widthOfButton)*0.5, (height-heightOfButton)*0.85, widthOfButton, heightOfButton);
+//    [_signupButton setTitle:@"Sign up" forState:UIControlStateNormal];
+//    [_signupButton addTarget:self action:@selector(pushAuthViewController) forControlEvents:UIControlEventTouchUpInside];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,11 +59,7 @@
     _signupButton.frame = CGRectMake((width-widthOfButton)*0.5, (height-heightOfButton)*0.85, widthOfButton, heightOfButton);
     [_signupButton setTitle:@"Sign up" forState:UIControlStateNormal];
     [_signupButton addTarget:self action:@selector(pushAuthViewController) forControlEvents:UIControlEventTouchUpInside];
-    
-    
     [self.view addSubview:_signupButton];
-    
-    
 }
 
 @end
