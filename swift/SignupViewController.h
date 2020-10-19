@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "AuthViewController.h"
-#import "MaterialTextFields.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -16,6 +16,15 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
+  - MaterialComponents/Dialogs (118.1.0):
+    - MaterialComponents/Buttons
+    - MaterialComponents/Elevation
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFInternationalization
   - MaterialComponents/Elevation (118.1.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
@@ -28,6 +37,8 @@ PODS:
   - MaterialComponents/private/Application (118.1.0)
   - MaterialComponents/private/Color (118.1.0):
     - MaterialComponents/Availability
+  - MaterialComponents/private/KeyboardWatcher (118.1.0):
+    - MaterialComponents/private/Application
   - MaterialComponents/private/Math (118.1.0)
   - MaterialComponents/Ripple (118.1.0):
     - MaterialComponents/AnimationTiming
@@ -65,6 +76,7 @@ PODS:
 DEPENDENCIES:
   - IGListKit (~> 4.0.0)
   - MaterialComponents/Buttons
+  - MaterialComponents/Dialogs
   - MaterialComponents/TextFields
   - YogaKit (~> 1.18.1)
 
@@ -87,6 +99,6 @@ SPEC CHECKSUMS:
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 5d3ffd0f30a2e80c48f0fad421b33893c4261913
+PODFILE CHECKSUM: b96acaa36ac9c8b840a09239612797120b4282fc
 
 COCOAPODS: 1.9.3

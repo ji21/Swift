@@ -28,6 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"%@", self.view);
+    
     //background color and top nav title
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
     self.view.backgroundColor = color;
@@ -77,7 +79,6 @@
     CGFloat widthOfBotView = width*0.7;
     CGFloat heightOfBotView = height*0.1;
     botSubView.frame = CGRectMake((width-widthOfBotView)*0.5, (height-heightOfView)*0.90, widthOfBotView, heightOfBotView);
-    
     
     
 }
