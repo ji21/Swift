@@ -7,7 +7,7 @@
 //
 
 #import "SwiftViewController.h"
-#import "authViewController.h"
+#import "SignupViewController.h"
 
 @interface SwiftViewController ()
 
@@ -17,9 +17,9 @@
 
 @implementation SwiftViewController
 
-- (void)pushAuthViewController {
-    authViewController *authVC = [[authViewController alloc] init];
-    [self.navigationController pushViewController:authVC animated:true];
+- (void)pushSignupViewController {
+    SignupViewController *signupVC = [[SignupViewController alloc] init];
+    [self.navigationController pushViewController:signupVC animated:true];
 }
 
 //- (void)pushLoginVIewController {
@@ -67,7 +67,7 @@
     CGFloat heightOfButton = heightOfView*0.3;
     _signupButton.frame = CGRectMake(0, heightOfTitle, widthOfButton, heightOfButton);
     [_signupButton setTitle:@"Create account" forState:UIControlStateNormal];
-    [_signupButton addTarget:self action:@selector(pushAuthViewController) forControlEvents:UIControlEventTouchUpInside];
+    [_signupButton addTarget:self action:@selector(pushSignupViewController) forControlEvents:UIControlEventTouchUpInside];
     [midSubView addSubview:_signupButton];
     
     //set midSubView
