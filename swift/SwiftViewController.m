@@ -31,7 +31,6 @@
     //background color and top nav title
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
     self.view.backgroundColor = color;
-    self.navigationItem.title = @"Swift";
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     
@@ -83,8 +82,5 @@
     
 }
 
--(void) viewWillAppear:(BOOL)animated {
-    self.navigationItem.title = @"Swift";
-}
 
 @end

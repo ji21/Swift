@@ -2,9 +2,9 @@ PODS:
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
-  - MaterialComponents/AnimationTiming (118.0.1)
-  - MaterialComponents/Availability (118.0.1)
-  - MaterialComponents/Buttons (118.0.1):
+  - MaterialComponents/AnimationTiming (118.1.0)
+  - MaterialComponents/Availability (118.1.0)
+  - MaterialComponents/Buttons (118.1.0):
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
     - MaterialComponents/private/Math
@@ -16,45 +16,43 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - MaterialComponents/Dialogs (118.0.1):
-    - MaterialComponents/Buttons
-    - MaterialComponents/Elevation
-    - MaterialComponents/private/KeyboardWatcher
-    - MaterialComponents/private/Math
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/Typography
-    - MDFInternationalization
-  - MaterialComponents/Elevation (118.0.1):
+  - MaterialComponents/Elevation (118.1.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Ink (118.0.1):
+  - MaterialComponents/Ink (118.1.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/private/Application (118.0.1)
-  - MaterialComponents/private/Color (118.0.1):
+  - MaterialComponents/Palettes (118.1.0)
+  - MaterialComponents/private/Application (118.1.0)
+  - MaterialComponents/private/Color (118.1.0):
     - MaterialComponents/Availability
-  - MaterialComponents/private/KeyboardWatcher (118.0.1):
-    - MaterialComponents/private/Application
-  - MaterialComponents/private/Math (118.0.1)
-  - MaterialComponents/Ripple (118.0.1):
+  - MaterialComponents/private/Math (118.1.0)
+  - MaterialComponents/Ripple (118.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/ShadowElevations (118.0.1)
-  - MaterialComponents/ShadowLayer (118.0.1):
+  - MaterialComponents/ShadowElevations (118.1.0)
+  - MaterialComponents/ShadowLayer (118.1.0):
     - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (118.0.1):
+  - MaterialComponents/ShapeLibrary (118.1.0):
     - MaterialComponents/private/Math
     - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (118.0.1):
+  - MaterialComponents/Shapes (118.1.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/Typography (118.0.1):
+  - MaterialComponents/TextFields (118.1.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Buttons
+    - MaterialComponents/Elevation
+    - MaterialComponents/Palettes
+    - MaterialComponents/private/Math
+    - MaterialComponents/Typography
+    - MDFInternationalization
+  - MaterialComponents/Typography (118.1.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
     - MDFTextAccessibility
@@ -67,7 +65,7 @@ PODS:
 DEPENDENCIES:
   - IGListKit (~> 4.0.0)
   - MaterialComponents/Buttons
-  - MaterialComponents/Dialogs
+  - MaterialComponents/TextFields
   - YogaKit (~> 1.18.1)
 
 SPEC REPOS:
@@ -83,12 +81,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
-  MaterialComponents: 932b7e85fa82ff1aaf94604b13114b2ded97bffa
+  MaterialComponents: e4a7c8b5eabe7856ef58f632fb5800a229bda5be
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c20f81166775baf670efbe7518f1d0d67f6ccbaa
+PODFILE CHECKSUM: 5d3ffd0f30a2e80c48f0fad421b33893c4261913
 
 COCOAPODS: 1.9.3

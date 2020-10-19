@@ -22,12 +22,12 @@
     
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
     self.view.backgroundColor = color;
-    [self.navigationController.navigationBar.topItem setTitle:@"Back"];
+//    [self.navigationController.navigationBar.topItem setTitle:@"Back"];
     
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self.navigationController.navigationBar.backItem setTitle:@"Back"];
-}
+//- (void)viewDidAppear:(BOOL)animated {
+//    [self.navigationController.navigationBar.backItem setTitle:@"Back"];
+//}
 
 @end
