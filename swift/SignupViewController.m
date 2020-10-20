@@ -15,7 +15,7 @@
 -(void) styleNumField;
 -(void) styleNextButton;
 -(void) verifyName;
--(void) textFieldDidChange;
+-(void) nameFieldDidChange;
 -(void) numFieldDidChange;
 -(void) phoneOrEmail;
 
@@ -25,15 +25,11 @@
     BOOL phone;
 };
 
-//-(instancetype) init{
-//    self->phone = YES;
-//    return self;
-//};
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self->phone=NO;
+    self->phone=YES;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     
@@ -98,7 +94,7 @@
     self.nameInputController.textInputClearButtonTintColor = [UIColor whiteColor];
     self.nameInputController.borderRadius = 10.0;
     [self.nameField addTarget:self
-              action:@selector(textFieldDidChange)
+              action:@selector(nameFieldDidChange)
     forControlEvents:UIControlEventEditingChanged];
 }
 
@@ -145,48 +141,53 @@
     [self.next setBorderColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.next.layer.cornerRadius = 20;
     self.next.uppercaseTitle = NO;
-    [self.next addTarget:self action:@selector(verifyName) forControlEvents:UIControlEventTouchUpInside];
+    [self.next addTarget:self action:@selector(verify) forControlEvents:UIControlEventTouchUpInside];
 }
 
--(void) verifyName {
+-(void) verify {
     NSString *name = self.nameField.text;
-//    NSString *phoneOrEmail;
     if ([name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
-//        [self.nameInputController setErrorText:@"*Please enter a name." errorAccessibilityValue:@"hihisadfsagdsfag"];
         self.nameField.text = @"";
         self.nameField.placeholder = @"*Please enter a name";
         self.nameInputController.floatingPlaceholderActiveColor = [UIColor redColor];
         self.nameInputController.floatingPlaceholderNormalColor = [UIColor redColor];
         self.nameInputController.inlinePlaceholderColor = [UIColor redColor];
-        [self.nameInputController setNormalColor:[UIColor redColor]];
-        [self.nameInputController setActiveColor:[UIColor redColor]];
         return;
     } else {
         self.nameField.placeholder = @"Name";
         self.nameInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
         self.nameInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
         self.nameInputController.inlinePlaceholderColor = [UIColor whiteColor];
-        [self.nameInputController setNormalColor:[UIColor whiteColor]];
-        [self.nameInputController setActiveColor:[UIColor whiteColor]];
+    }
+    NSString *num = self.numField.text;
+    if ([num stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0 || self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+        if(self->phone) {
+            self.numField.placeholder = @"*Please enter a valid phone number.";
+            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+        } else {
+            self.numField.placeholder = @"*Please enter a valid email.";
+            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+        }
+        return;
     }
 }
 
--(void) textFieldDidChange{
+-(void) nameFieldDidChange{
     if ([self.nameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length != 0) {
         self.nameField.placeholder = @"Name";
         self.nameInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
         self.nameInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
         self.nameInputController.inlinePlaceholderColor = [UIColor whiteColor];
-        [self.nameInputController setNormalColor:[UIColor whiteColor]];
-        [self.nameInputController setActiveColor:[UIColor whiteColor]];
         return;
     } else {
         self.nameField.placeholder = @"*Please enter a name";
         self.nameInputController.floatingPlaceholderActiveColor = [UIColor redColor];
         self.nameInputController.floatingPlaceholderNormalColor = [UIColor redColor];
         self.nameInputController.inlinePlaceholderColor = [UIColor redColor];
-        [self.nameInputController setNormalColor:[UIColor redColor]];
-        [self.nameInputController setActiveColor:[UIColor redColor]];
     }
 };
 
@@ -199,16 +200,12 @@
             self.numInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
             self.numInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
             self.numInputController.inlinePlaceholderColor = [UIColor whiteColor];
-            [self.numInputController setNormalColor:[UIColor whiteColor]];
-            [self.numInputController setActiveColor:[UIColor whiteColor]];
             return;
         } else {
             self.numField.placeholder = @"*Please enter a valid phone number.";
             self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
             self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
             self.numInputController.inlinePlaceholderColor = [UIColor redColor];
-            [self.numInputController setNormalColor:[UIColor redColor]];
-            [self.numInputController setActiveColor:[UIColor redColor]];
         }
     } else {
         NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
@@ -220,15 +217,11 @@
             self.numInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
             self.numInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
             self.numInputController.inlinePlaceholderColor = [UIColor whiteColor];
-            [self.numInputController setNormalColor:[UIColor whiteColor]];
-            [self.numInputController setActiveColor:[UIColor whiteColor]];
         } else {
             self.numField.placeholder = @"*Please enter a valid email.";
             self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
             self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
             self.numInputController.inlinePlaceholderColor = [UIColor redColor];
-            [self.numInputController setNormalColor:[UIColor redColor]];
-            [self.numInputController setActiveColor:[UIColor redColor]];
         }
     }
 
@@ -237,10 +230,18 @@
 -(void) phoneOrEmail {
     if (self->phone) {
         self.numField.keyboardType = UIKeyboardTypePhonePad;
-        self.numField.placeholder = @"Phone Number";
+        if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+            self.numField.placeholder = @"*Please enter a valid phone number.";
+        } else {
+            self.numField.placeholder = @"Phone Number";
+        }
     } else {
         self.numField.keyboardType = UIKeyboardTypeDefault;
-        self.numField.placeholder = @"Email";
+        if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+            self.numField.placeholder = @"*Please enter a valid email.";
+        } else {
+            self.numField.placeholder = @"Email";
+        }
     }
 }
 
