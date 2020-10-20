@@ -60,11 +60,12 @@
     [_signupButton setBorderColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_signupButton setBorderColor:[UIColor clearColor] forState:UIControlStateHighlighted];
     [_signupButton setBorderWidth:2.0 forState:UIControlStateNormal];
-    _signupButton.layer.cornerRadius = 30;
+    _signupButton.layer.cornerRadius = 25;
     CGFloat widthOfButton = widthOfView;
     CGFloat heightOfButton = heightOfView*0.3;
     _signupButton.frame = CGRectMake(0, heightOfTitle, widthOfButton, heightOfButton);
     [_signupButton setTitle:@"Create account" forState:UIControlStateNormal];
+    _signupButton.uppercaseTitle = NO;
     [_signupButton addTarget:self action:@selector(pushSignupViewController) forControlEvents:UIControlEventTouchUpInside];
     [midSubView addSubview:_signupButton];
     
