@@ -28,14 +28,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@", self.view);
-    
     //background color and top nav title
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
     self.view.backgroundColor = color;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    
     
     //"div" to contain label and signup button
     UIView *midSubView = [[UIView alloc] init];
