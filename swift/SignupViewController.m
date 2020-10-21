@@ -314,13 +314,13 @@
 }
 
 -(void) keyboardWillChange:(NSNotification *)notification {
-    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.botView.frame.origin.y -200., self.botView.frame.size.width, self.botView.frame.size.height);
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    keyboardRect = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
+    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.botView.frame.origin.y-(height-keyboardRect.origin.y), self.botView.frame.size.width, self.botView.frame.size.height);
     if ([self.numField isFirstResponder]) {
         [self.label setTextColor:[UIColor whiteColor]];
-        CGFloat width = [UIScreen mainScreen].bounds.size.width;
-//        CGFloat height = [UIScreen mainScreen].bounds.size.height;
-        CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-        keyboardRect = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
         if (self->phone) {
             [self.label setText:@"Use email instead"];
             self.numField.keyboardType = UIKeyboardTypePhonePad;
