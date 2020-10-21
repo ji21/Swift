@@ -23,7 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MDCTextInputControllerFilled *numInputController;
 @property (nonatomic, strong) MDCTextField *numField;
 
+@property (nonatomic, strong) MDCTextField *ageField;
+@property (nonatomic, strong) MDCTextInputControllerFilled *ageInputController;
+
 @property (nonatomic, strong) MDCButton *next;
+
+@property (nonatomic, strong) UITextView *label;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *botView;
+
 
 @end
 

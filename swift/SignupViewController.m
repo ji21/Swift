@@ -11,13 +11,18 @@
 
 @interface SignupViewController ()
 
+-(void) initScrollView;
 -(void) styleNameField;
 -(void) styleNumField;
 -(void) styleNextButton;
+-(void) styleAgeField;
 -(void) verifyName;
 -(void) nameFieldDidChange;
 -(void) numFieldDidChange;
--(void) phoneOrEmail;
+-(void) dateFieldDidChange;
+-(void) changePads;
+-(void) hideToggle;
+-(void) keyboardWillChange;
 
 @end
 
@@ -29,31 +34,42 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.95, self.view.frame.size.width, self.view.frame.size.width*0.05)];
+    [self.view addSubview:self.botView];
+    
     self->phone=YES;
+    self.label = [[UITextView alloc] init];
+    self.label.text = @"nanda";
+    self.label.userInteractionEnabled = YES;
+    self.label.frame = CGRectMake(0, 0, 100, 40);
+    [self.botView addSubview:self.label];
+    //set up observer on self
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     
     //mid subview
     UIView *midSubView = [[UIView alloc] init];
     CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.4;
+    CGFloat heightOfView = height*0.5;
     midSubView.frame = CGRectMake((width-widthOfView)*0.5, (height-heightOfView)*0.15, widthOfView, heightOfView);
     
-    //namefields
-//    CGFloat heightOfField = heightOfView*0.2;
+    //style components
     [self styleNameField];
     [midSubView addSubview:self.nameField];
     
     [self styleNumField];
     [midSubView addSubview:self.numField];
     
+    [self styleAgeField];
+    [midSubView addSubview:self.ageField];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.87);
-    scrollView.showsVerticalScrollIndicator = NO;
-    scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    [scrollView addSubview:midSubView];
+    //add scroll view
+    [self initScrollView];
+    [self.scrollView addSubview:midSubView];
     
+    //style heading
     UILabel *_heading = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, widthOfView, heightOfView*0.2)];
     [_heading setText:@"Create your account"];
     [_heading setTextColor:[UIColor whiteColor]];
@@ -61,12 +77,23 @@
     [_heading setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:25]];
     [midSubView addSubview:_heading];
     
-    [self styleNextButton];
+
     
+    [self styleNextButton];
     [midSubView addSubview:self.next];
-    [self.view addSubview:scrollView];
+    [self.view addSubview:self.scrollView];
     
 
+}
+
+-(void) initScrollView {
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.95)];
+    [self.scrollView layoutIfNeeded];
+    self.scrollView.contentSize = self.view.bounds.size;
+
+    self.scrollView.showsVerticalScrollIndicator = NO;
+    self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 }
 
 -(void) styleNameField {
@@ -123,7 +150,40 @@
     [self.numField addTarget:self
               action:@selector(numFieldDidChange)
     forControlEvents:UIControlEventEditingChanged];
-    [self.numField addTarget:self action:@selector(phoneOrEmail) forControlEvents:UIControlEventEditingDidBegin];
+    [self.numField addTarget:self action:@selector(changePads) forControlEvents:UIControlEventEditingDidBegin];
+    [self.numField addTarget:self action:@selector(hideToggle) forControlEvents:UIControlEventEditingDidEnd];
+    NSLog(self->phone? @"on phone":@"use email");
+}
+
+-(void) styleAgeField {
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat widthOfView = width*0.7;
+    CGFloat heightOfView = height*0.2;
+    CGFloat heightOfField = heightOfView*0.2;
+    
+    self.ageField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, 3*heightOfField+110, widthOfView, heightOfField)];
+    self.ageField.placeholder = @"Date of birth";
+    self.ageField.textColor = [UIColor whiteColor];
+    self.ageInputController = [[MDCTextInputControllerFilled alloc] initWithTextInput:self.ageField];
+    [self.ageInputController setNormalColor:[UIColor whiteColor]];
+    [self.ageInputController setActiveColor:[UIColor whiteColor]];
+    self.ageInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
+    self.ageInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
+    self.ageInputController.inlinePlaceholderColor = [UIColor whiteColor];
+    self.ageInputController.borderFillColor = [UIColor clearColor];
+    self.ageInputController.textInputClearButtonTintColor = [UIColor whiteColor];
+    self.ageInputController.borderRadius = 10.0;
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    NSDate *now = [NSDate date];
+    NSDateComponents *minusHundredYears = [NSDateComponents new];
+    minusHundredYears.year = -150;
+    NSDate *hundredYearsAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusHundredYears toDate:now options:0];
+    [datePicker setDatePickerMode:UIDatePickerModeDate];
+    [datePicker setMaximumDate:now];
+    [datePicker setMinimumDate:hundredYearsAgo];
+    [datePicker addTarget:self action:@selector(dateFieldDidChange:) forControlEvents:UIControlEventValueChanged];
+    self.ageField.inputView = datePicker;
 }
 
 -(void) styleNextButton {
@@ -134,11 +194,10 @@
     CGFloat heightOfButton = 52;
     CGFloat widthOfButton = widthOfView*0.9;
     
-    self.next = [[MDCButton alloc] initWithFrame:CGRectMake((widthOfView-widthOfButton)*0.5, 3*heightOfView*0.2 + 140, widthOfButton, heightOfButton)];
-    self.next.backgroundColor = [UIColor clearColor];
+    self.next = [[MDCButton alloc] initWithFrame:CGRectMake((widthOfView-widthOfButton)*0.5, 4*heightOfView*0.2 + 160, widthOfButton, heightOfButton)];
+//    self.next.backgroundColor = [UIColor colorWithRed:67.0/255.0 green:94.0/255.0 blue:148.0/255.0 alpha:1.0];
+    self.next.backgroundColor = [UIColor colorWithRed:67.0/255.0 green:94.0/255.0 blue:148.0/255.0 alpha:1.0];
     [self.next setTitle:@"next >" forState:UIControlStateNormal];
-    [self.next setBorderWidth:2.0 forState:UIControlStateNormal];
-    [self.next setBorderColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.next.layer.cornerRadius = 20;
     self.next.uppercaseTitle = NO;
     [self.next addTarget:self action:@selector(verify) forControlEvents:UIControlEventTouchUpInside];
@@ -174,6 +233,12 @@
         }
         return;
     }
+    if ([self.ageField.text length]==0) {
+        self.ageField.placeholder = @"*Please enter your age.";
+        self.ageInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+        self.ageInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+        self.ageInputController.inlinePlaceholderColor = [UIColor redColor];
+    }
 }
 
 -(void) nameFieldDidChange{
@@ -192,7 +257,7 @@
 };
 
 -(void) numFieldDidChange {
-    if (self.numField.placeholder == @"Phone Number" || self.numField.placeholder == @"*Please enter a valid phone number.") {
+    if ([self.numField.placeholder isEqualToString:@"Phone Number"] || [self.numField.placeholder isEqualToString: @"*Please enter a valid phone number."]) {
         NSString *phoneRegex = @"^((\\+)|(0)|(00))[0-9]{6,14}$";
         NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
         if ([phoneTest evaluateWithObject:self.numField.text]) {
@@ -224,23 +289,54 @@
             self.numInputController.inlinePlaceholderColor = [UIColor redColor];
         }
     }
-
 };
 
--(void) phoneOrEmail {
+-(void) dateFieldDidChange:(UIDatePicker *)sender {
+    self.ageField.text = [sender.date.description substringToIndex:10];
+    if (self.ageInputController.floatingPlaceholderActiveColor == [UIColor redColor]) {
+        self.ageField.placeholder = @"Date of birth";
+        self.ageInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
+        self.ageInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
+        self.ageInputController.inlinePlaceholderColor = [UIColor whiteColor];
+    }
+}
+
+-(void) changePads {
     if (self->phone) {
         self.numField.keyboardType = UIKeyboardTypePhonePad;
-        if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
-            self.numField.placeholder = @"*Please enter a valid phone number.";
-        } else {
-            self.numField.placeholder = @"Phone Number";
-        }
     } else {
         self.numField.keyboardType = UIKeyboardTypeDefault;
-        if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
-            self.numField.placeholder = @"*Please enter a valid email.";
+    }
+}
+
+-(void) hideToggle {
+    NSLog(@"I did it");
+}
+
+-(void) keyboardWillChange:(NSNotification *)notification {
+    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.botView.frame.origin.y -200., self.botView.frame.size.width, self.botView.frame.size.height);
+    if ([self.numField isFirstResponder]) {
+        [self.label setTextColor:[UIColor whiteColor]];
+        CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//        CGFloat height = [UIScreen mainScreen].bounds.size.height;
+        CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        keyboardRect = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
+        if (self->phone) {
+            [self.label setText:@"Use email instead"];
+            self.numField.keyboardType = UIKeyboardTypePhonePad;
+            if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+                self.numField.placeholder = @"*Please enter a valid phone number.";
+            } else {
+                self.numField.placeholder = @"Phone Number";
+            }
         } else {
-            self.numField.placeholder = @"Email";
+            [self.label setText:@"Use phone instead"];
+            self.numField.keyboardType = UIKeyboardTypeDefault;
+            if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+                self.numField.placeholder = @"*Please enter a valid email.";
+            } else {
+                self.numField.placeholder = @"Email";
+            }
         }
     }
 }
