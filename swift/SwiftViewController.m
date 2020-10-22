@@ -62,7 +62,7 @@
     [_signupButton setBorderWidth:2.0 forState:UIControlStateNormal];
     _signupButton.layer.cornerRadius = 25;
     CGFloat widthOfButton = widthOfView;
-    CGFloat heightOfButton = heightOfView*0.3;
+    CGFloat heightOfButton = heightOfView*0.35;
     _signupButton.frame = CGRectMake(0, heightOfTitle, widthOfButton, heightOfButton);
     [_signupButton setTitle:@"Create account" forState:UIControlStateNormal];
     _signupButton.uppercaseTitle = NO;

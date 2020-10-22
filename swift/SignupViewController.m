@@ -23,6 +23,7 @@
 -(void) changePads;
 -(void) keyboardWillShow;
 -(void) keyboardWillHide;
+-(void) labelTapped;
 
 @end
 
@@ -34,23 +35,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.botView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.05, self.view.frame.size.height*0.95, self.view.frame.size.width, self.view.frame.size.width*0.05)];
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.94, self.view.frame.size.width, self.view.frame.size.width*0.1)];
+    [self.botView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
     [self.view addSubview:self.botView];
-    
     self->phone=YES;
-    self.label = [[UILabel alloc] init];
-    self.label.text = @"";
-    self.label.userInteractionEnabled = YES;
-    self.label.textColor = [UIColor whiteColor];
-    self.label.frame = CGRectMake(0, 0, 500, 40);
+    
+    self.label = [[UIButton alloc] init];
+    self.label.tintColor = [UIColor whiteColor];
+    self.label.frame = CGRectMake(width*0.03, 0, width*0.45, 40);
+    [self.label addTarget:self action:@selector(labelTapped) forControlEvents:UIControlEventTouchUpInside];
+    self.label.hidden = YES;
     [self.botView addSubview:self.label];
     //set up observer on self
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
     
     //mid subview
     UIView *midSubView = [[UIView alloc] init];
@@ -83,17 +84,16 @@
 
     
     [self styleNextButton];
-    [midSubView addSubview:self.next];
+    [self.botView addSubview:self.next];
     [self.view addSubview:self.scrollView];
     
 
 }
 
 -(void) initScrollView {
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.95)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.94)];
     [self.scrollView layoutIfNeeded];
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.950000000001)];
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.9401)];
 
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -190,17 +190,14 @@
 
 -(void) styleNextButton {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.2;
-    CGFloat heightOfButton = 52;
-    CGFloat widthOfButton = widthOfView*0.9;
+    CGFloat heightOfButton = 35;
+    CGFloat widthOfButton = width*0.20;
     
-    self.next = [[MDCButton alloc] initWithFrame:CGRectMake((widthOfView-widthOfButton)*0.5, 4*heightOfView*0.2 + 160, widthOfButton, heightOfButton)];
+    self.next = [[MDCButton alloc] initWithFrame:CGRectMake((width)*0.70, 0, widthOfButton, heightOfButton)];
 //    self.next.backgroundColor = [UIColor colorWithRed:67.0/255.0 green:94.0/255.0 blue:148.0/255.0 alpha:1.0];
     self.next.backgroundColor = [UIColor colorWithRed:67.0/255.0 green:94.0/255.0 blue:148.0/255.0 alpha:1.0];
-    [self.next setTitle:@"next >" forState:UIControlStateNormal];
-    self.next.layer.cornerRadius = 20;
+    [self.next setTitle:@"Next" forState:UIControlStateNormal];
+    self.next.layer.cornerRadius = 15;
     self.next.uppercaseTitle = NO;
     [self.next addTarget:self action:@selector(verify) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -312,39 +309,68 @@
 }
 
 -(void) keyboardWillShow:(NSNotification *)notification {
+    [self.view bringSubviewToFront:self.botView];
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     keyboardRect = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
     self->keyboardHeight = keyboardRect.origin.y;
-    NSLog(@"%f", self->keyboardHeight);
-    if (true) {
-        self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.botView.frame.origin.y-(height-keyboardRect.origin.y), self.botView.frame.size.width, self.botView.frame.size.height);
-        if ([self.numField isFirstResponder]) {
-    //        [self.label setTextColor:[UIColor whiteColor]];
-            if (self->phone) {
-                [self.label setText:@"Use email instead"];
-                self.numField.keyboardType = UIKeyboardTypePhonePad;
-                if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
-                    self.numField.placeholder = @"*Please enter a valid phone number.";
-                } else {
-                    self.numField.placeholder = @"Phone Number";
-                }
+//    NSLog(@"%f", self->keyboardHeight);
+    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.view.frame.size.height*0.94-(height-keyboardRect.origin.y), self.botView.frame.size.width, self.botView.frame.size.height);
+    if ([self.numField isFirstResponder]) {
+        self.label.hidden = NO;
+        if (self->phone) {
+            [self.label setTitle:@"Use email instead" forState:UIControlStateNormal];
+            self.numField.keyboardType = UIKeyboardTypePhonePad;
+            if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+                self.numField.placeholder = @"*Please enter a valid phone number.";
             } else {
-                [self.label setText:@"Use phone instead"];
-                self.numField.keyboardType = UIKeyboardTypeDefault;
-                if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
-                    self.numField.placeholder = @"*Please enter a valid email.";
-                } else {
-                    self.numField.placeholder = @"Email";
-                }
+                self.numField.placeholder = @"Phone Number";
+            }
+        } else {
+            [self.label setTitle:@"Use phone instead" forState:UIControlStateNormal];
+            self.numField.keyboardType = UIKeyboardTypeDefault;
+            if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+                self.numField.placeholder = @"*Please enter a valid email.";
+            } else {
+                self.numField.placeholder = @"Email";
             }
         }
+    } else {
+        self.label.hidden = YES;
     }
 }
 
 -(void) keyboardWillHide:(NSNotification *)notification {
-    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.view.frame.size.height*0.95, self.botView.frame.size.width, self.botView.frame.size.height);
+    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.view.frame.size.height*0.94, self.botView.frame.size.width, self.botView.frame.size.height);
+    self.label.hidden = YES;
 }
 
+
+-(void) labelTapped {
+    if (self->phone) {
+        self.numField.text = @"";
+        self->phone =NO;
+        [self.label setTitle:@"Use phone instead" forState:UIControlStateNormal];
+        self.numField.keyboardType = UIKeyboardTypeDefault;
+        [self.numField reloadInputViews];
+        if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+            self.numField.placeholder = @"*Please enter a valid email.";
+        } else {
+            self.numField.placeholder = @"Email";
+        }
+    } else {
+        self.numField.text = @"";
+        self->phone = YES;
+        [self.label setTitle:@"Use email instead" forState:UIControlStateNormal];
+        self.numField.keyboardType = UIKeyboardTypePhonePad;
+        [self.numField reloadInputViews];
+        if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+            self.numField.placeholder = @"*Please enter a valid phone number.";
+        } else {
+            self.numField.placeholder = @"Phone Number";
+        }
+    }
+    NSLog(self->phone? @"using phone": @"using email");
+}
 
 @end

@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MDCButton *next;
 
-@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UIButton *label;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *botView;
 
