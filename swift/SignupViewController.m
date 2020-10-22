@@ -21,30 +21,33 @@
 -(void) numFieldDidChange;
 -(void) dateFieldDidChange;
 -(void) changePads;
--(void) hideToggle;
--(void) keyboardWillChange;
+-(void) keyboardWillShow;
+-(void) keyboardWillHide;
 
 @end
 
 @implementation SignupViewController{
     BOOL phone;
+    CGFloat keyboardHeight;
 };
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.95, self.view.frame.size.width, self.view.frame.size.width*0.05)];
+    self.botView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.05, self.view.frame.size.height*0.95, self.view.frame.size.width, self.view.frame.size.width*0.05)];
     [self.view addSubview:self.botView];
     
     self->phone=YES;
-    self.label = [[UITextView alloc] init];
-    self.label.text = @"nanda";
+    self.label = [[UILabel alloc] init];
+    self.label.text = @"";
     self.label.userInteractionEnabled = YES;
-    self.label.frame = CGRectMake(0, 0, 100, 40);
+    self.label.textColor = [UIColor whiteColor];
+    self.label.frame = CGRectMake(0, 0, 500, 40);
     [self.botView addSubview:self.label];
     //set up observer on self
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
@@ -90,7 +93,7 @@
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.95)];
     [self.scrollView layoutIfNeeded];
-    self.scrollView.contentSize = self.view.bounds.size;
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.950000000001)];
 
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -151,7 +154,6 @@
               action:@selector(numFieldDidChange)
     forControlEvents:UIControlEventEditingChanged];
     [self.numField addTarget:self action:@selector(changePads) forControlEvents:UIControlEventEditingDidBegin];
-    [self.numField addTarget:self action:@selector(hideToggle) forControlEvents:UIControlEventEditingDidEnd];
     NSLog(self->phone? @"on phone":@"use email");
 }
 
@@ -309,36 +311,40 @@
     }
 }
 
--(void) hideToggle {
-    NSLog(@"I did it");
-}
-
--(void) keyboardWillChange:(NSNotification *)notification {
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+-(void) keyboardWillShow:(NSNotification *)notification {
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     keyboardRect = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
-    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.botView.frame.origin.y-(height-keyboardRect.origin.y), self.botView.frame.size.width, self.botView.frame.size.height);
-    if ([self.numField isFirstResponder]) {
-        [self.label setTextColor:[UIColor whiteColor]];
-        if (self->phone) {
-            [self.label setText:@"Use email instead"];
-            self.numField.keyboardType = UIKeyboardTypePhonePad;
-            if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
-                self.numField.placeholder = @"*Please enter a valid phone number.";
+    self->keyboardHeight = keyboardRect.origin.y;
+    NSLog(@"%f", self->keyboardHeight);
+    if (true) {
+        self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.botView.frame.origin.y-(height-keyboardRect.origin.y), self.botView.frame.size.width, self.botView.frame.size.height);
+        if ([self.numField isFirstResponder]) {
+    //        [self.label setTextColor:[UIColor whiteColor]];
+            if (self->phone) {
+                [self.label setText:@"Use email instead"];
+                self.numField.keyboardType = UIKeyboardTypePhonePad;
+                if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+                    self.numField.placeholder = @"*Please enter a valid phone number.";
+                } else {
+                    self.numField.placeholder = @"Phone Number";
+                }
             } else {
-                self.numField.placeholder = @"Phone Number";
-            }
-        } else {
-            [self.label setText:@"Use phone instead"];
-            self.numField.keyboardType = UIKeyboardTypeDefault;
-            if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
-                self.numField.placeholder = @"*Please enter a valid email.";
-            } else {
-                self.numField.placeholder = @"Email";
+                [self.label setText:@"Use phone instead"];
+                self.numField.keyboardType = UIKeyboardTypeDefault;
+                if(self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+                    self.numField.placeholder = @"*Please enter a valid email.";
+                } else {
+                    self.numField.placeholder = @"Email";
+                }
             }
         }
     }
 }
+
+-(void) keyboardWillHide:(NSNotification *)notification {
+    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.view.frame.size.height*0.95, self.botView.frame.size.width, self.botView.frame.size.height);
+}
+
 
 @end
