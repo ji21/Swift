@@ -33,11 +33,27 @@
 };
 
 
+//- (void) viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    self.handle = [[FIRAuth auth]
+//        addAuthStateDidChangeListener:^(FIRAuth *_Nonnull auth, FIRUser *_Nullable user) {
+//          // [START_EXCLUDE]
+//          [self setTitleDisplay:user];
+//          [self.tableView reloadData];
+//          // [END_EXCLUDE]
+//        }];
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.94, self.view.frame.size.width, self.view.frame.size.width*0.1)];
+    UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
+    
+    self.view.backgroundColor = color;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
+    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, height*0.83, self.view.frame.size.width, self.view.frame.size.width*0.1)];
     [self.botView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
     [self.view addSubview:self.botView];
     self->phone=YES;
@@ -70,8 +86,8 @@
     [midSubView addSubview:self.ageField];
     
     //add scroll view
-    [self initScrollView];
-    [self.scrollView addSubview:midSubView];
+//    [self initScrollView];
+    [self.view addSubview:midSubView];
     
     //style heading
     UILabel *_heading = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, widthOfView, heightOfView*0.2)];
@@ -85,18 +101,8 @@
     
     [self styleNextButton];
     [self.botView addSubview:self.next];
-    [self.view addSubview:self.scrollView];
     
 
-}
-
--(void) initScrollView {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.94)];
-    [self.scrollView layoutIfNeeded];
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.9401)];
-
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 }
 
 -(void) styleNameField {
@@ -341,7 +347,8 @@
 }
 
 -(void) keyboardWillHide:(NSNotification *)notification {
-    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.view.frame.size.height*0.94, self.botView.frame.size.width, self.botView.frame.size.height);
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    self.botView.frame = CGRectMake(self.botView.frame.origin.x, height*0.83, self.botView.frame.size.width, self.botView.frame.size.height);
     self.label.hidden = YES;
 }
 
