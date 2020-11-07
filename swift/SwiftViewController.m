@@ -8,6 +8,7 @@
 
 #import "SwiftViewController.h"
 #import "SignupViewController.h"
+#import "LoginViewController.h"
 
 @interface SwiftViewController ()
 
@@ -22,9 +23,12 @@
     [self.navigationController pushViewController:signupVC animated:true];
 }
 
-//- (void)pushLoginVIewController {
-//
-//}
+- (void)pushLoginViewController {
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    [self.navigationController pushViewController:loginVC animated:true];
+    NSLog(@"abc");
+}
+
 
 
 - (void)viewDidLoad {
@@ -38,7 +42,7 @@
     //"div" to contain label and signup button
     UIView *midSubView = [[UIView alloc] init];
     CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.2;
+    CGFloat heightOfView = height*0.3;
     midSubView.frame = CGRectMake((width-widthOfView)*0.5, (height-heightOfView)*0.60, widthOfView, heightOfView);
     
 
@@ -63,7 +67,7 @@
     [_signupButton setBorderWidth:2.0 forState:UIControlStateNormal];
     _signupButton.layer.cornerRadius = 25;
     CGFloat widthOfButton = widthOfView;
-    CGFloat heightOfButton = heightOfView*0.35;
+    CGFloat heightOfButton = heightOfView*0.23;
     _signupButton.frame = CGRectMake(0, heightOfTitle, widthOfButton, heightOfButton);
     [_signupButton setTitle:@"Create account" forState:UIControlStateNormal];
     _signupButton.uppercaseTitle = NO;
@@ -75,12 +79,26 @@
     
     //bottom subView
     UIView *botSubView = [[UIView alloc] init];
-    CGFloat widthOfBotView = width*0.7;
-    CGFloat heightOfBotView = height*0.1;
-    botSubView.frame = CGRectMake((width-widthOfBotView)*0.5, (height-heightOfView)*0.90, widthOfBotView, heightOfBotView);
+    CGFloat heightOfBotView = height*0.05;
+    botSubView.frame = CGRectMake((width-widthOfView)*0.5, (height)*0.90, widthOfView, heightOfBotView);
+    botSubView.backgroundColor = [UIColor whiteColor];
     
+    UILabel *signin = [[UILabel alloc] init];
+    [signin setText:@"FIller Text"];
+    signin.frame = CGRectMake(0, 0, widthOfView*0.3, heightOfBotView);
+    [botSubView addSubview:signin];
+    
+    UIButton *signinNav = [[UIButton alloc] init];
+    [signinNav setTitle:@"Login" forState:UIControlStateNormal];
+    signinNav.frame = CGRectMake(widthOfView*0.3, 0, widthOfView*0.3, heightOfBotView);
+    signinNav.tintColor = [UIColor blackColor];
+    signinNav.backgroundColor = [UIColor blackColor];
+    [signinNav addTarget:self action:@selector(pushLoginViewController) forControlEvents:UIControlEventTouchUpInside];
+    [botSubView addSubview:signinNav];
+    [self.view addSubview:botSubView];
     
 }
+
 
 
 @end

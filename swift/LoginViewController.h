@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SigninViewController : UITableViewController
+@interface LoginViewController : UITableViewController
 
 @end
 
