@@ -26,7 +26,6 @@
 - (void)pushLoginViewController {
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     [self.navigationController pushViewController:loginVC animated:true];
-    NSLog(@"abc");
 }
 
 

@@ -33,29 +33,30 @@
 };
 
 
-//- (void) viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    self.handle = [[FIRAuth auth]
-//        addAuthStateDidChangeListener:^(FIRAuth *_Nonnull auth, FIRUser *_Nullable user) {
-//          // [START_EXCLUDE]
-//          [self setTitleDisplay:user];
-//          [self.tableView reloadData];
-//          // [END_EXCLUDE]
-//        }];
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:@"http://swift-api.eba-b7petiuu.us-west-2.elasticbeanstalk.com/api/users"]];
+    [request setHTTPMethod:@"POST"];
+    
+    
+    MDCButton *testbtn = [[MDCButton alloc] initWithFrame:CGRectMake(100, 500, 100,100)];
+    [testbtn setTitle:@"testing" forState:UIControlStateNormal];
+    [self.view addSubview:testbtn];
+    
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
     
+    
     self.view.backgroundColor = color;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    
-    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, height*0.83, self.view.frame.size.width, self.view.frame.size.width*0.1)];
+    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, height*0.83, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height*0.04)];
     [self.botView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
+//    self.botView.userInteractionEnabled = false;
     [self.view addSubview:self.botView];
+    [self.view sendSubviewToBack:self.botView];
+    
     self->phone=YES;
     
     self.label = [[UIButton alloc] init];
@@ -86,7 +87,6 @@
     [midSubView addSubview:self.ageField];
     
     //add scroll view
-//    [self initScrollView];
     [self.view addSubview:midSubView];
     
     //style heading
@@ -101,7 +101,6 @@
     
     [self styleNextButton];
     [self.botView addSubview:self.next];
-    
 
 }
 
@@ -191,6 +190,7 @@
     [datePicker setMaximumDate:now];
     [datePicker setMinimumDate:hundredYearsAgo];
     [datePicker addTarget:self action:@selector(dateFieldDidChange:) forControlEvents:UIControlEventValueChanged];
+//    [datePicker setFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)];
     self.ageField.inputView = datePicker;
 }
 
@@ -354,6 +354,7 @@
 
 
 -(void) labelTapped {
+    NSLog(@"tapped");
     if (self->phone) {
         self.numField.text = @"";
         self->phone =NO;
