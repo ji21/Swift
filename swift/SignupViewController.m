@@ -11,20 +11,6 @@
 
 @interface SignupViewController ()
 
--(void) initScrollView;
--(void) styleNameField;
--(void) styleNumField;
--(void) styleNextButton;
--(void) styleAgeField;
--(void) verifyName;
--(void) nameFieldDidChange;
--(void) numFieldDidChange;
--(void) dateFieldDidChange;
--(void) changePads;
--(void) keyboardWillShow;
--(void) keyboardWillHide;
--(void) labelTapped;
-
 @end
 
 @implementation SignupViewController{
@@ -35,15 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:@"http://swift-api.eba-b7petiuu.us-west-2.elasticbeanstalk.com/api/users"]];
-    [request setHTTPMethod:@"POST"];
+
     
-    
-    MDCButton *testbtn = [[MDCButton alloc] initWithFrame:CGRectMake(100, 500, 100,100)];
-    [testbtn setTitle:@"testing" forState:UIControlStateNormal];
-    [self.view addSubview:testbtn];
-    
+        
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
@@ -172,6 +152,8 @@
     self.ageField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, 3*heightOfField+110, widthOfView, heightOfField)];
     self.ageField.placeholder = @"Date of birth";
     self.ageField.textColor = [UIColor whiteColor];
+    [self.ageField addTarget:self action:@selector(openDatePicker) forControlEvents:UIControlEventEditingDidBegin];
+    
     self.ageInputController = [[MDCTextInputControllerFilled alloc] initWithTextInput:self.ageField];
     [self.ageInputController setNormalColor:[UIColor whiteColor]];
     [self.ageInputController setActiveColor:[UIColor whiteColor]];
@@ -181,17 +163,6 @@
     self.ageInputController.borderFillColor = [UIColor clearColor];
     self.ageInputController.textInputClearButtonTintColor = [UIColor whiteColor];
     self.ageInputController.borderRadius = 10.0;
-    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
-    NSDate *now = [NSDate date];
-    NSDateComponents *minusHundredYears = [NSDateComponents new];
-    minusHundredYears.year = -150;
-    NSDate *hundredYearsAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusHundredYears toDate:now options:0];
-    [datePicker setDatePickerMode:UIDatePickerModeDate];
-    [datePicker setMaximumDate:now];
-    [datePicker setMinimumDate:hundredYearsAgo];
-    [datePicker addTarget:self action:@selector(dateFieldDidChange:) forControlEvents:UIControlEventValueChanged];
-//    [datePicker setFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)];
-    self.ageField.inputView = datePicker;
 }
 
 -(void) styleNextButton {
@@ -243,7 +214,58 @@
         self.ageInputController.floatingPlaceholderActiveColor = [UIColor redColor];
         self.ageInputController.floatingPlaceholderNormalColor = [UIColor redColor];
         self.ageInputController.inlinePlaceholderColor = [UIColor redColor];
+        return;
     }
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:@"http://swift-api.eba-b7petiuu.us-west-2.elasticbeanstalk.com/api/users"]];
+
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    jsonDict[@"name"] = name;
+    jsonDict[@"birthdate"] = self.ageField.text;
+    if (self->phone) jsonDict[@"phone"] = num;
+    else jsonDict[@"email"] = num;
+
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:nil];
+    
+//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@", jsonString);
+//    NSData *requestData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:csrfToken forHTTPHeaderField:@"X-CSRF-Token"];
+    [request setHTTPBody: jsonData];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:^(NSData * _Nullable data,
+                                                                NSURLResponse * _Nullable response,
+                                                                NSError * _Nullable error) {
+                                                NSLog(@"Yay, done! Check for errors in response!");
+
+                                                NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
+                                                NSLog(@"The response is: %@", asHTTPResponse);
+                                                // set a breakpoint on the last NSLog and investigate the response in the debugger
+
+//                                                 if you get data, you can inspect that, too. If it's JSON, do one of these:
+                                                NSDictionary *forJSONObject = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                              options:kNilOptions
+                                                                                                                error:nil];
+//                                                // or
+//                                                NSArray *forJSONArray = [NSJSONSerialization JSONObjectWithData:data
+//                                                                                                        options:kNilOptions
+//                                                                                                          error:nil];
+//
+                                                NSLog(@"One of these might exist - object: %@", forJSONObject);
+
+                                            }];
+    [task resume];
+    
+//    NSURLSession *connection = [[NSURLSession alloc]initWithRequest:request delegate:self];
+    
 }
 
 -(void) nameFieldDidChange{
@@ -352,9 +374,22 @@
     self.label.hidden = YES;
 }
 
+-(void) openDatePicker {
+    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    NSDate *now = [NSDate date];
+    NSDateComponents *minusHundredYears = [NSDateComponents new];
+    minusHundredYears.year = -150;
+    NSDate *hundredYearsAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusHundredYears toDate:now options:0];
+    [datePicker setDatePickerMode:UIDatePickerModeDate];
+    [datePicker setMaximumDate:now];
+    [datePicker setMinimumDate:hundredYearsAgo];
+    [datePicker addTarget:self action:@selector(dateFieldDidChange:) forControlEvents:UIControlEventValueChanged];
+    [datePicker setPreferredDatePickerStyle:UIDatePickerStyleWheels];
+    self.ageField.inputView = datePicker;
+}
+
 
 -(void) labelTapped {
-    NSLog(@"tapped");
     if (self->phone) {
         self.numField.text = @"";
         self->phone =NO;

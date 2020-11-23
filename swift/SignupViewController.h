@@ -32,6 +32,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *botView;
 
+-(void) initScrollView;
+-(void) styleNameField;
+-(void) styleNumField;
+-(void) styleNextButton;
+-(void) styleAgeField;
+-(void) verifyName;
+-(void) nameFieldDidChange;
+-(void) numFieldDidChange;
+-(void) dateFieldDidChange;
+-(void) changePads;
+-(void) keyboardWillShow;
+-(void) keyboardWillHide;
+-(void) labelTapped;
+-(void) openDatePicker;
 
 @end
 

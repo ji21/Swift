@@ -47,12 +47,12 @@
 
     //label
     UILabel *title = [[UILabel alloc] init];
-    [title setText:@"Discover your Soulmates."];
+    [title setText:@"Share Stories on the go."];
     [title setTextColor:[UIColor whiteColor]];
     [title setTextAlignment:NSTextAlignmentLeft];
     [title setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:33]];
     [title setNumberOfLines:2];
-    CGFloat widthOfTitle = widthOfView;
+    CGFloat widthOfTitle = widthOfView*0.8;
     CGFloat heightOfTitle = heightOfView*0.8;
     title.frame = CGRectMake(0.0, 0.0, widthOfTitle, heightOfTitle);
     [midSubView addSubview:title];
