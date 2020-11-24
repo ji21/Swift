@@ -9,9 +9,6 @@
 #import "SignupViewController.h"
 
 
-@interface SignupViewController ()
-
-@end
 
 @implementation SignupViewController{
     BOOL phone;
@@ -225,17 +222,12 @@
     if (self->phone) jsonDict[@"phone"] = num;
     else jsonDict[@"email"] = num;
 
-    NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:nil];
     
-//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//    NSLog(@"%@", jsonString);
-//    NSData *requestData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-//
+
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [request addValue:csrfToken forHTTPHeaderField:@"X-CSRF-Token"];
     [request setHTTPBody: jsonData];
     
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -247,7 +239,7 @@
                                                 NSLog(@"Yay, done! Check for errors in response!");
 
                                                 NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
-                                                NSLog(@"The response is: %@", asHTTPResponse);
+                                                NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
                                                 // set a breakpoint on the last NSLog and investigate the response in the debugger
 
 //                                                 if you get data, you can inspect that, too. If it's JSON, do one of these:
@@ -259,7 +251,7 @@
 //                                                                                                        options:kNilOptions
 //                                                                                                          error:nil];
 //
-                                                NSLog(@"One of these might exist - object: %@", forJSONObject);
+                                                NSLog(@"User Id: %@", forJSONObject[@"insertId"]);
 
                                             }];
     [task resume];
