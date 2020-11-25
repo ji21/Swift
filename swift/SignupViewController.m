@@ -19,8 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
-        
+
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
@@ -233,27 +232,33 @@
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                            completionHandler:^(NSData * _Nullable data,
-                                                                NSURLResponse * _Nullable response,
-                                                                NSError * _Nullable error) {
-                                                NSLog(@"Yay, done! Check for errors in response!");
+        completionHandler:^(NSData * _Nullable data,
+                            NSURLResponse * _Nullable response,
+                            NSError * _Nullable error) {
+            NSLog(@"Yay, done! Check for errors in response!");
 
-                                                NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
-                                                NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
-                                                // set a breakpoint on the last NSLog and investigate the response in the debugger
-
-//                                                 if you get data, you can inspect that, too. If it's JSON, do one of these:
-                                                NSDictionary *forJSONObject = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                              options:kNilOptions
-                                                                                                                error:nil];
-//                                                // or
-//                                                NSArray *forJSONArray = [NSJSONSerialization JSONObjectWithData:data
-//                                                                                                        options:kNilOptions
-//                                                                                                          error:nil];
-//
-                                                NSLog(@"User Id: %@", forJSONObject[@"insertId"]);
-
-                                            }];
+            NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
+            NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
+            NSDictionary *forJSONObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            if (asHTTPResponse.statusCode == 500){
+                if (self->phone) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Phone number already in use" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+                    [alert addAction:defaultAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                } else {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Email address already in use" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+                    [alert addAction:defaultAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            } else {
+//                NSCache *cache = [[NSCache alloc] init];
+//                [cache setObject:forJSONObject[@"insertId"] forKey:@"userId"];
+////                [cache objectForKey:@"insertId"];
+                NSLog(@"User Id: %@", forJSONObject[@"insertId"]);
+            }
+        }];
     [task resume];
     
 //    NSURLSession *connection = [[NSURLSession alloc]initWithRequest:request delegate:self];

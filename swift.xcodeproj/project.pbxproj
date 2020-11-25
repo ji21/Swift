@@ -18,6 +18,7 @@
 		4F58861C2538FA5800FDEB48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F58861B2538FA5800FDEB48 /* main.m */; };
 		4F588627253A6B1600FDEB48 /* SwiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F588626253A6B1600FDEB48 /* SwiftViewController.m */; };
 		4FB49ED4254B604100480062 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FB49ED3254B604100480062 /* GoogleService-Info.plist */; };
+		4FE49B5D256EF13F00DAF263 /* SetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE49B5C256EF13F00DAF263 /* SetPasswordViewController.m */; };
 		E3DD0507F492D9BAF789D93A /* Pods_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD9713616BA20920DDF2A4E8 /* Pods_swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,8 @@
 		4F588625253A6B1600FDEB48 /* SwiftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftViewController.h; sourceTree = "<group>"; };
 		4F588626253A6B1600FDEB48 /* SwiftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftViewController.m; sourceTree = "<group>"; };
 		4FB49ED3254B604100480062 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4FE49B5B256EF13F00DAF263 /* SetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetPasswordViewController.h; sourceTree = "<group>"; };
+		4FE49B5C256EF13F00DAF263 /* SetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetPasswordViewController.m; sourceTree = "<group>"; };
 		7C90B57A465ECFE9F39EA8CC /* Pods-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift.debug.xcconfig"; path = "Target Support Files/Pods-swift/Pods-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		D1036BDA7B15287569BB261D /* Pods-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift.release.xcconfig"; path = "Target Support Files/Pods-swift/Pods-swift.release.xcconfig"; sourceTree = "<group>"; };
 		DD9713616BA20920DDF2A4E8 /* Pods_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +109,8 @@
 				4F5886172538FA5800FDEB48 /* LaunchScreen.storyboard */,
 				4F58861A2538FA5800FDEB48 /* Info.plist */,
 				4F58861B2538FA5800FDEB48 /* main.m */,
+				4FE49B5B256EF13F00DAF263 /* SetPasswordViewController.h */,
+				4FE49B5C256EF13F00DAF263 /* SetPasswordViewController.m */,
 			);
 			path = swift;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 				4F5886112538FA5700FDEB48 /* ViewController.m in Sources */,
 				4F58860B2538FA5700FDEB48 /* AppDelegate.m in Sources */,
 				4F588627253A6B1600FDEB48 /* SwiftViewController.m in Sources */,
+				4FE49B5D256EF13F00DAF263 /* SetPasswordViewController.m in Sources */,
 				4F58861C2538FA5800FDEB48 /* main.m in Sources */,
 				4F30236E253B782D00C9810E /* SignupViewController.m in Sources */,
 				4F58860E2538FA5700FDEB48 /* SceneDelegate.m in Sources */,
