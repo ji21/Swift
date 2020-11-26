@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) keyboardWillHide;
 -(void) labelTapped;
 -(void) openDatePicker;
+-(void) layoutBotView;
 
 @end
 

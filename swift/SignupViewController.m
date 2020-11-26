@@ -7,6 +7,7 @@
 //
 
 #import "SignupViewController.h"
+#import <YogaKit/UIView+Yoga.h>
 
 
 
@@ -27,7 +28,7 @@
     
     self.view.backgroundColor = color;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, height*0.83, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height*0.04)];
+    self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, height*0.83, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*0.04)];
     [self.botView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
 //    self.botView.userInteractionEnabled = false;
     [self.view addSubview:self.botView];
@@ -37,7 +38,6 @@
     
     self.label = [[UIButton alloc] init];
     self.label.tintColor = [UIColor whiteColor];
-    self.label.frame = CGRectMake(width*0.03, 0, width*0.45, 40);
     [self.label addTarget:self action:@selector(labelTapped) forControlEvents:UIControlEventTouchUpInside];
     self.label.hidden = YES;
     [self.botView addSubview:self.label];
@@ -76,9 +76,34 @@
 
     
     [self styleNextButton];
-    [self.botView addSubview:self.next];
+    [self layoutBotView];
 
 }
+
+-(void) layoutBotView {
+    [self.label configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+//        layout.margin = YGPointValue(8.0);
+        layout.width = YGPercentValue(50.0);
+        layout.height = YGPercentValue(100.0);
+    }];
+    
+    [self.next configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.height = YGPercentValue(100.0);
+        layout.width = YGPercentValue(16.0);
+        layout.marginEnd = YGPointValue(30.0);
+    }];
+    
+    [self.botView configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.justifyContent = YGJustifySpaceBetween;
+        layout.flexDirection = YGFlexDirectionRow;
+        layout.alignItems = YGAlignCenter;
+    }];
+    
+    [self.botView.yoga applyLayoutPreservingOrigin:YES];
+};
 
 -(void) styleNameField {
     //namefields
@@ -162,17 +187,13 @@
 }
 
 -(void) styleNextButton {
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat heightOfButton = 35;
-    CGFloat widthOfButton = width*0.20;
-    
-    self.next = [[MDCButton alloc] initWithFrame:CGRectMake((width)*0.70, 0, widthOfButton, heightOfButton)];
-//    self.next.backgroundColor = [UIColor colorWithRed:67.0/255.0 green:94.0/255.0 blue:148.0/255.0 alpha:1.0];
+    self.next = [[MDCButton alloc] init];
     self.next.backgroundColor = [UIColor colorWithRed:67.0/255.0 green:94.0/255.0 blue:148.0/255.0 alpha:1.0];
     [self.next setTitle:@"Next" forState:UIControlStateNormal];
     self.next.layer.cornerRadius = 15;
     self.next.uppercaseTitle = NO;
     [self.next addTarget:self action:@selector(verify) forControlEvents:UIControlEventTouchUpInside];
+    [self.botView addSubview:self.next];
 }
 
 -(void) verify {
@@ -260,9 +281,6 @@
             }
         }];
     [task resume];
-    
-//    NSURLSession *connection = [[NSURLSession alloc]initWithRequest:request delegate:self];
-    
 }
 
 -(void) nameFieldDidChange{
@@ -340,7 +358,7 @@
     keyboardRect = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
     self->keyboardHeight = keyboardRect.origin.y;
 //    NSLog(@"%f", self->keyboardHeight);
-    self.botView.frame = CGRectMake(self.botView.frame.origin.x, self.view.frame.size.height*0.94-(height-keyboardRect.origin.y), self.botView.frame.size.width, self.botView.frame.size.height);
+    self.botView.frame = CGRectMake(0, self.view.frame.size.height*0.94-(height-keyboardRect.origin.y), [UIScreen mainScreen].bounds.size.width, self.botView.frame.size.height);
     if ([self.numField isFirstResponder]) {
         self.label.hidden = NO;
         if (self->phone) {
@@ -367,7 +385,7 @@
 
 -(void) keyboardWillHide:(NSNotification *)notification {
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    self.botView.frame = CGRectMake(self.botView.frame.origin.x, height*0.83, self.botView.frame.size.width, self.botView.frame.size.height);
+    self.botView.frame = CGRectMake(0, height*0.83, [UIScreen mainScreen].bounds.size.width, self.botView.frame.size.height);
     self.label.hidden = YES;
 }
 
