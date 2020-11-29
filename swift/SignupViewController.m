@@ -37,7 +37,7 @@
     [self.view sendSubviewToBack:self.botView];
     
     CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.3;
+    CGFloat heightOfView = height*0.35;
     
     self.midSubView = [[UIView alloc] initWithFrame:CGRectMake((width-widthOfView)*0.5, (height-heightOfView)*0.15, widthOfView, heightOfView)];
     [self.view addSubview:self.midSubView];
@@ -111,7 +111,7 @@
     [self.midSubView configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
         layout.isEnabled = YES;
         layout.flexDirection = YGFlexDirectionColumn;
-        layout.justifyContent = YGJustifySpaceAround;
+//        layout.justifyContent = YGJustifySpaceAround;
     }];
     
     [self.midSubView.yoga applyLayoutPreservingOrigin:YES];
@@ -143,13 +143,7 @@
 
 -(void) styleNameField {
     //namefields
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.2;
-    CGFloat heightOfField = heightOfView*0.2;
 
-//    self.nameField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, heightOfField+40, widthOfView, heightOfField)];
     self.nameField = [[MDCTextField alloc] init];
     self.nameField.placeholder = @"Name";
     self.nameField.textColor = [UIColor whiteColor];

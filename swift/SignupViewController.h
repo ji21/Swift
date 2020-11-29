@@ -30,9 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MDCButton *label;
 @property (nonatomic, strong) UILabel *heading;
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UIView *botView;
 @property (nonatomic, strong) UIView *midSubView;
+@property (nonatomic, strong) UIView *botView;
 
 -(void) initScrollView;
 -(void) styleNameField;
