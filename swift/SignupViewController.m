@@ -37,7 +37,7 @@
     [self.view sendSubviewToBack:self.botView];
     
     CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.35;
+    CGFloat heightOfView = height*0.60;
     
     self.midSubView = [[UIView alloc] initWithFrame:CGRectMake((width-widthOfView)*0.5, (height-heightOfView)*0.15, widthOfView, heightOfView)];
     [self.view addSubview:self.midSubView];
@@ -83,6 +83,18 @@
 
 }
 
+//-(void) viewWillAppear:(BOOL)animated{
+//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+//    self.botView.frame = CGRectMake(0, height*0.83, [UIScreen mainScreen].bounds.size.width, self.botView.frame.size.height);
+//    self.label.hidden = YES;
+//}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    self.numField.resignFirstResponder;
+    self.ageField.resignFirstResponder;
+    self.nameField.resignFirstResponder;
+}
+
 -(void) layoutMidSubView{
     [self.heading configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
         layout.isEnabled = YES;
@@ -93,19 +105,21 @@
     [self.nameField configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
         layout.isEnabled = YES;
         layout.width = YGPercentValue(100.0);
-//        layout.height = YGPointValue(20.0);
+//        layout.height = YGPointValue(24.0);
+//        layout.marginBottom = YGPercentValue(15.0);
     }];
     
     [self.numField configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
         layout.isEnabled = YES;
         layout.width = YGPercentValue(100.0);
-//        layout.height = YGPointValue(20.0);
+//        layout.height = YGPointValue(24.0);
+//        layout.marginBottom = YGPercentValue(15.0);
     }];
     
     [self.ageField configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
         layout.isEnabled = YES;
         layout.width = YGPercentValue(100.0);
-//        layout.height = YGPointValue(20.0);
+//      layout.height = YGPointValue(24.0);
     }];
 //
     [self.midSubView configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
@@ -122,12 +136,12 @@
         layout.isEnabled = YES;
         layout.height = YGPercentValue(100.0);
         layout.marginLeft = YGPointValue(10.0);
+        layout.width = YGPointValue(170.0);
     }];
     
     [self.next configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
         layout.isEnabled = YES;
         layout.height = YGPercentValue(100.0);
-//        layout.width = YGPercentValue(16.0);
         layout.marginEnd = YGPointValue(30.0);
     }];
     

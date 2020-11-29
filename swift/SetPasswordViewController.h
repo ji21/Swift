@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MaterialTextFields.h"
+#import "MaterialButtons.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,12 +21,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MDCTextField *confirmField;
 @property (nonatomic, strong) MDCTextInputControllerFilled *confirmInputController;
 
+@property (nonatomic, strong) MDCButton *createBtn;
+@property (nonatomic, strong) UILabel *terms;
+
 @property (nonatomic, strong) UILabel *heading;
 @property (nonatomic, strong) UIView *midSubView;
 
 -(void) configureSubviewLayout;
 -(void) addTitle;
 -(void) addPasswordFields;
+-(void) addCreateBtn;
+-(void) addTerms;
 
 @end
 
