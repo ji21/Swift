@@ -7,6 +7,7 @@
 //
 
 #import "SignupViewController.h"
+#import "SetPasswordViewController.h"
 #import <YogaKit/UIView+Yoga.h>
 
 
@@ -28,70 +29,105 @@
     
     self.view.backgroundColor = color;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
     self.botView = [[UIView alloc] initWithFrame:CGRectMake(0, height*0.83, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*0.04)];
     [self.botView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
 //    self.botView.userInteractionEnabled = false;
     [self.view addSubview:self.botView];
     [self.view sendSubviewToBack:self.botView];
     
+    CGFloat widthOfView = width*0.7;
+    CGFloat heightOfView = height*0.3;
+    
+    self.midSubView = [[UIView alloc] initWithFrame:CGRectMake((width-widthOfView)*0.5, (height-heightOfView)*0.15, widthOfView, heightOfView)];
+    [self.view addSubview:self.midSubView];
+    
     self->phone=YES;
     
-    self.label = [[UIButton alloc] init];
-    self.label.tintColor = [UIColor whiteColor];
+//    self.label = [[MDCButton alloc] init];
+//    self.label.tintColor = [UIColor whiteColor];
+//    [self.label addTarget:self action:@selector(labelTapped) forControlEvents:UIControlEventTouchUpInside];
+//    self.label.backgroundColor = [UIColor yellowColor];
+//    self.label.hidden = YES;
+    
+    self.label = [[MDCButton alloc] init];
+    [self.label setBackgroundColor:[UIColor clearColor]];
+    [self.label setTitle:@"Use email instead" forState:UIControlStateNormal];
     [self.label addTarget:self action:@selector(labelTapped) forControlEvents:UIControlEventTouchUpInside];
+    self.label.uppercaseTitle = NO;
     self.label.hidden = YES;
     [self.botView addSubview:self.label];
+
     //set up observer on self
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    
+    self.heading = [[UILabel alloc] init];
+    [self.heading setText:@"Create your account"];
+    [self.heading setTextColor:[UIColor whiteColor]];
+    [self.heading setTextAlignment:NSTextAlignmentCenter];
+    [self.heading setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:25]];
+    [self.midSubView addSubview:self.heading];
     //mid subview
-    UIView *midSubView = [[UIView alloc] init];
-    CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.5;
-    midSubView.frame = CGRectMake((width-widthOfView)*0.5, (height-heightOfView)*0.15, widthOfView, heightOfView);
-    
-    //style components
     [self styleNameField];
-    [midSubView addSubview:self.nameField];
-    
     [self styleNumField];
-    [midSubView addSubview:self.numField];
-    
     [self styleAgeField];
-    [midSubView addSubview:self.ageField];
-    
-    //add scroll view
-    [self.view addSubview:midSubView];
     
     //style heading
-    UILabel *_heading = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, widthOfView, heightOfView*0.2)];
-    [_heading setText:@"Create your account"];
-    [_heading setTextColor:[UIColor whiteColor]];
-    [_heading setTextAlignment:NSTextAlignmentCenter];
-    [_heading setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:25]];
-    [midSubView addSubview:_heading];
     
 
     
     [self styleNextButton];
     [self layoutBotView];
+    [self layoutMidSubView];
 
+}
+
+-(void) layoutMidSubView{
+    [self.heading configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.width = YGPercentValue(100.0);
+        layout.marginBottom = YGPercentValue(10.0);
+    }];
+    
+    [self.nameField configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.width = YGPercentValue(100.0);
+//        layout.height = YGPointValue(20.0);
+    }];
+    
+    [self.numField configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.width = YGPercentValue(100.0);
+//        layout.height = YGPointValue(20.0);
+    }];
+    
+    [self.ageField configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.width = YGPercentValue(100.0);
+//        layout.height = YGPointValue(20.0);
+    }];
+//
+    [self.midSubView configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.flexDirection = YGFlexDirectionColumn;
+        layout.justifyContent = YGJustifySpaceAround;
+    }];
+    
+    [self.midSubView.yoga applyLayoutPreservingOrigin:YES];
 }
 
 -(void) layoutBotView {
     [self.label configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
         layout.isEnabled = YES;
-//        layout.margin = YGPointValue(8.0);
-        layout.width = YGPercentValue(50.0);
         layout.height = YGPercentValue(100.0);
+        layout.marginLeft = YGPointValue(10.0);
     }];
     
     [self.next configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
         layout.isEnabled = YES;
         layout.height = YGPercentValue(100.0);
-        layout.width = YGPercentValue(16.0);
+//        layout.width = YGPercentValue(16.0);
         layout.marginEnd = YGPointValue(30.0);
     }];
     
@@ -112,8 +148,9 @@
     CGFloat widthOfView = width*0.7;
     CGFloat heightOfView = height*0.2;
     CGFloat heightOfField = heightOfView*0.2;
-    
-    self.nameField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, heightOfField+40, widthOfView, heightOfField)];
+
+//    self.nameField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, heightOfField+40, widthOfView, heightOfField)];
+    self.nameField = [[MDCTextField alloc] init];
     self.nameField.placeholder = @"Name";
     self.nameField.textColor = [UIColor whiteColor];
     [self.nameField setEnabled:YES];
@@ -132,17 +169,19 @@
     [self.nameField addTarget:self
               action:@selector(nameFieldDidChange)
     forControlEvents:UIControlEventEditingChanged];
+    [self.midSubView addSubview:self.nameField];
 }
 
 -(void) styleNumField {
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.2;
-    CGFloat heightOfField = heightOfView*0.2;
-
-    //email or phone fields
-    self.numField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, 2*heightOfField+75, widthOfView, heightOfField)];
+//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+//    CGFloat widthOfView = width*0.7;
+//    CGFloat heightOfView = height*0.2;
+//    CGFloat heightOfField = heightOfView*0.2;
+//
+//    //email or phone fields
+//    self.numField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, 2*heightOfField+75, widthOfView, heightOfField)];
+    self.numField = [[MDCTextField alloc] init];
     self.numField.placeholder = @"Phone number or email address";
     self.numField.textColor = [UIColor whiteColor];
 
@@ -161,16 +200,19 @@
     forControlEvents:UIControlEventEditingChanged];
     [self.numField addTarget:self action:@selector(changePads) forControlEvents:UIControlEventEditingDidBegin];
     NSLog(self->phone? @"on phone":@"use email");
+    [self.midSubView addSubview:self.numField];
 }
 
 -(void) styleAgeField {
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat widthOfView = width*0.7;
-    CGFloat heightOfView = height*0.2;
-    CGFloat heightOfField = heightOfView*0.2;
+//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+//    CGFloat widthOfView = width*0.7;
+//    CGFloat heightOfView = height*0.2;
+//    CGFloat heightOfField = heightOfView*0.2;
+//
+//    self.ageField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, 3*heightOfField+110, widthOfView, heightOfField)];
     
-    self.ageField = [[MDCTextField alloc] initWithFrame:CGRectMake(0.0, 3*heightOfField+110, widthOfView, heightOfField)];
+    self.ageField = [[MDCTextField alloc] init];
     self.ageField.placeholder = @"Date of birth";
     self.ageField.textColor = [UIColor whiteColor];
     [self.ageField addTarget:self action:@selector(openDatePicker) forControlEvents:UIControlEventEditingDidBegin];
@@ -184,6 +226,7 @@
     self.ageInputController.borderFillColor = [UIColor clearColor];
     self.ageInputController.textInputClearButtonTintColor = [UIColor whiteColor];
     self.ageInputController.borderRadius = 10.0;
+    [self.midSubView addSubview:self.ageField];
 }
 
 -(void) styleNextButton {
@@ -197,90 +240,91 @@
 }
 
 -(void) verify {
-    NSString *name = self.nameField.text;
-    if ([name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
-        self.nameField.text = @"";
-        self.nameField.placeholder = @"*Please enter a name";
-        self.nameInputController.floatingPlaceholderActiveColor = [UIColor redColor];
-        self.nameInputController.floatingPlaceholderNormalColor = [UIColor redColor];
-        self.nameInputController.inlinePlaceholderColor = [UIColor redColor];
-        return;
-    } else {
-        self.nameField.placeholder = @"Name";
-        self.nameInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
-        self.nameInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
-        self.nameInputController.inlinePlaceholderColor = [UIColor whiteColor];
-    }
-    NSString *num = self.numField.text;
-    if ([num stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0 || self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
-        if(self->phone) {
-            self.numField.placeholder = @"*Please enter a valid phone number.";
-            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
-            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
-            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
-        } else {
-            self.numField.placeholder = @"*Please enter a valid email.";
-            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
-            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
-            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
-        }
-        return;
-    }
-    if ([self.ageField.text length]==0) {
-        self.ageField.placeholder = @"*Please enter your age.";
-        self.ageInputController.floatingPlaceholderActiveColor = [UIColor redColor];
-        self.ageInputController.floatingPlaceholderNormalColor = [UIColor redColor];
-        self.ageInputController.inlinePlaceholderColor = [UIColor redColor];
-        return;
-    }
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:@"http://swift-api.eba-b7petiuu.us-west-2.elasticbeanstalk.com/api/users"]];
-
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    jsonDict[@"name"] = name;
-    jsonDict[@"birthdate"] = self.ageField.text;
-    if (self->phone) jsonDict[@"phone"] = num;
-    else jsonDict[@"email"] = num;
-
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:nil];
-    
-
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody: jsonData];
-    
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-        completionHandler:^(NSData * _Nullable data,
-                            NSURLResponse * _Nullable response,
-                            NSError * _Nullable error) {
-            NSLog(@"Yay, done! Check for errors in response!");
-
-            NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
-            NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
-            NSDictionary *forJSONObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            if (asHTTPResponse.statusCode == 500){
-                if (self->phone) {
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Phone number already in use" preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
-                    [alert addAction:defaultAction];
-                    [self presentViewController:alert animated:YES completion:nil];
-                } else {
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Email address already in use" preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
-                    [alert addAction:defaultAction];
-                    [self presentViewController:alert animated:YES completion:nil];
-                }
-            } else {
-//                NSCache *cache = [[NSCache alloc] init];
-//                [cache setObject:forJSONObject[@"insertId"] forKey:@"userId"];
-////                [cache objectForKey:@"insertId"];
-                NSLog(@"User Id: %@", forJSONObject[@"insertId"]);
-            }
-        }];
-    [task resume];
+//    NSString *name = self.nameField.text;
+//    if ([name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
+//        self.nameField.text = @"";
+//        self.nameField.placeholder = @"*Please enter a name";
+//        self.nameInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+//        self.nameInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+//        self.nameInputController.inlinePlaceholderColor = [UIColor redColor];
+//        return;
+//    } else {
+//        self.nameField.placeholder = @"Name";
+//        self.nameInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
+//        self.nameInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
+//        self.nameInputController.inlinePlaceholderColor = [UIColor whiteColor];
+//    }
+//    NSString *num = self.numField.text;
+//    if ([num stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0 || self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+//        if(self->phone) {
+//            self.numField.placeholder = @"*Please enter a valid phone number.";
+//            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+//            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+//            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+//        } else {
+//            self.numField.placeholder = @"*Please enter a valid email.";
+//            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+//            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+//            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+//        }
+//        return;
+//    }
+//    if ([self.ageField.text length]==0) {
+//        self.ageField.placeholder = @"*Please enter your age.";
+//        self.ageInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+//        self.ageInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+//        self.ageInputController.inlinePlaceholderColor = [UIColor redColor];
+//        return;
+//    }
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setURL:[NSURL URLWithString:@"http://swift-api.eba-b7petiuu.us-west-2.elasticbeanstalk.com/api/users"]];
+//
+//    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+//    jsonDict[@"name"] = name;
+//    jsonDict[@"birthdate"] = self.ageField.text;
+//    if (self->phone) jsonDict[@"phone"] = num;
+//    else jsonDict[@"email"] = num;
+//
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:nil];
+//
+//
+//    [request setHTTPMethod:@"POST"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    [request setHTTPBody: jsonData];
+//
+//    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+//        completionHandler:^(NSData * _Nullable data,
+//                            NSURLResponse * _Nullable response,
+//                            NSError * _Nullable error) {
+//            NSLog(@"Yay, done! Check for errors in response!");
+//
+//            NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
+//            NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
+//            NSDictionary *forJSONObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+//            if (asHTTPResponse.statusCode == 500){
+//                if (self->phone) {
+//                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Phone number already in use" preferredStyle:UIAlertControllerStyleAlert];
+//                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+//                    [alert addAction:defaultAction];
+//                    [self presentViewController:alert animated:YES completion:nil];
+//                } else {
+//                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Email address already in use" preferredStyle:UIAlertControllerStyleAlert];
+//                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+//                    [alert addAction:defaultAction];
+//                    [self presentViewController:alert animated:YES completion:nil];
+//                }
+//            } else {
+////                NSCache *cache = [[NSCache alloc] init];
+////                [cache setObject:forJSONObject[@"insertId"] forKey:@"userId"];
+//////                [cache objectForKey:@"insertId"];
+//                NSLog(@"User Id: %@", forJSONObject[@"insertId"]);
+                [self pushSetPasswordViewController];
+//            }
+//        }];
+//    [task resume];
 }
 
 -(void) nameFieldDidChange{
@@ -429,6 +473,11 @@
         }
     }
     NSLog(self->phone? @"using phone": @"using email");
+}
+
+-(void) pushSetPasswordViewController{
+    SetPasswordViewController *pwViewController = [[SetPasswordViewController alloc] init];
+    [self.navigationController pushViewController:pwViewController animated:true];
 }
 
 @end

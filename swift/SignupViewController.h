@@ -28,9 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MDCButton *next;
 
-@property (nonatomic, strong) UIButton *label;
+@property (nonatomic, strong) MDCButton *label;
+@property (nonatomic, strong) UILabel *heading;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *botView;
+@property (nonatomic, strong) UIView *midSubView;
 
 -(void) initScrollView;
 -(void) styleNameField;
@@ -47,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) labelTapped;
 -(void) openDatePicker;
 -(void) layoutBotView;
+-(void) pushSetPasswordViewController;
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import "SetPasswordViewController.h"
+#import <YogaKit/UIView+Yoga.h>
 
 @interface SetPasswordViewController ()
 
@@ -16,17 +17,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    UIView *midSubView = [[UIView alloc] init];
+//    CGFloat widthOfView = self.width*0.7;
+//    CGFloat heightOfView = self.height*0.5;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat widthOfView = width*0.7;
+    CGFloat heightOfView = height*0.5;
+    midSubView.frame = CGRectMake((width-widthOfView)*0.5, (height-heightOfView)*0.15, widthOfView, heightOfView);
+    midSubView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:midSubView];
+    [self configureSubviewLayout];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void) configureSubviewLayout{
+    
 }
-*/
+
+
+
 
 @end

@@ -10,7 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SetPasswordViewController : UIViewController
+@interface SetPasswordViewController : UITableViewController
+
+
+-(void) configureSubviewLayout;
 
 @end
 
