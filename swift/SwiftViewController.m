@@ -10,6 +10,7 @@
 #import "SignupViewController.h"
 #import "LoginViewController.h"
 
+
 @interface SwiftViewController ()
 
 
@@ -45,7 +46,6 @@
     CGFloat heightOfView = height*0.3;
     midSubView.frame = CGRectMake((width-widthOfView)*0.5, (height-heightOfView)*0.60, widthOfView, heightOfView);
     
-
     //label
     UILabel *title = [[UILabel alloc] init];
     [title setText:@"Share Stories on the go."];

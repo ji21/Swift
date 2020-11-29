@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *heading;
 @property (nonatomic, strong) UIView *midSubView;
 @property (nonatomic, strong) UIView *botView;
+@property (nonatomic, strong) NSMutableURLRequest *request;
 
 -(void) initScrollView;
 -(void) styleNameField;
@@ -49,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) openDatePicker;
 -(void) layoutBotView;
 -(void) pushSetPasswordViewController;
+-(void) configureButton;
+-(void) validate;
 
 @end
 

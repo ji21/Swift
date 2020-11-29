@@ -21,7 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-
+    self.request = [[NSMutableURLRequest alloc] init];
+    [self.request setURL:[NSURL URLWithString:@"http://swift-api.eba-b7petiuu.us-west-2.elasticbeanstalk.com/api/users"]];
+    [self.request setHTTPMethod:@"POST"];
+    [self.request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     UIColor *color = [[UIColor alloc]initWithRed:23.0/255.0 green:54.0/255.0 blue:121.0/255.0 alpha:1.0];
@@ -244,95 +249,91 @@
     self.next.layer.cornerRadius = 15;
     self.next.uppercaseTitle = NO;
     [self.next addTarget:self action:@selector(verify) forControlEvents:UIControlEventTouchUpInside];
+    self.next.enabled = NO;
     [self.botView addSubview:self.next];
 }
 
 -(void) verify {
-//    NSString *name = self.nameField.text;
-//    if ([name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
-//        self.nameField.text = @"";
-//        self.nameField.placeholder = @"*Please enter a name";
-//        self.nameInputController.floatingPlaceholderActiveColor = [UIColor redColor];
-//        self.nameInputController.floatingPlaceholderNormalColor = [UIColor redColor];
-//        self.nameInputController.inlinePlaceholderColor = [UIColor redColor];
-//        return;
-//    } else {
-//        self.nameField.placeholder = @"Name";
-//        self.nameInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
-//        self.nameInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
-//        self.nameInputController.inlinePlaceholderColor = [UIColor whiteColor];
-//    }
-//    NSString *num = self.numField.text;
-//    if ([num stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0 || self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
-//        if(self->phone) {
-//            self.numField.placeholder = @"*Please enter a valid phone number.";
-//            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
-//            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
-//            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
-//        } else {
-//            self.numField.placeholder = @"*Please enter a valid email.";
-//            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
-//            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
-//            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
-//        }
-//        return;
-//    }
-//    if ([self.ageField.text length]==0) {
-//        self.ageField.placeholder = @"*Please enter your age.";
-//        self.ageInputController.floatingPlaceholderActiveColor = [UIColor redColor];
-//        self.ageInputController.floatingPlaceholderNormalColor = [UIColor redColor];
-//        self.ageInputController.inlinePlaceholderColor = [UIColor redColor];
-//        return;
-//    }
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-//    [request setURL:[NSURL URLWithString:@"http://swift-api.eba-b7petiuu.us-west-2.elasticbeanstalk.com/api/users"]];
-//
-//    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-//    jsonDict[@"name"] = name;
-//    jsonDict[@"birthdate"] = self.ageField.text;
-//    if (self->phone) jsonDict[@"phone"] = num;
-//    else jsonDict[@"email"] = num;
-//
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:nil];
-//
-//
-//    [request setHTTPMethod:@"POST"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [request setHTTPBody: jsonData];
-//
-//    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-//        completionHandler:^(NSData * _Nullable data,
-//                            NSURLResponse * _Nullable response,
-//                            NSError * _Nullable error) {
-//            NSLog(@"Yay, done! Check for errors in response!");
-//
-//            NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
-//            NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
-//            NSDictionary *forJSONObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-//            if (asHTTPResponse.statusCode == 500){
-//                if (self->phone) {
-//                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Phone number already in use" preferredStyle:UIAlertControllerStyleAlert];
-//                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
-//                    [alert addAction:defaultAction];
-//                    [self presentViewController:alert animated:YES completion:nil];
-//                } else {
-//                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Email address already in use" preferredStyle:UIAlertControllerStyleAlert];
-//                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
-//                    [alert addAction:defaultAction];
-//                    [self presentViewController:alert animated:YES completion:nil];
-//                }
-//            } else {
-////                NSCache *cache = [[NSCache alloc] init];
-////                [cache setObject:forJSONObject[@"insertId"] forKey:@"userId"];
-//////                [cache objectForKey:@"insertId"];
-//                NSLog(@"User Id: %@", forJSONObject[@"insertId"]);
-                [self pushSetPasswordViewController];
-//            }
-//        }];
-//    [task resume];
+    NSString *name = self.nameField.text;
+    if ([name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
+        self.nameField.text = @"";
+        self.nameField.placeholder = @"*Please enter a name";
+        self.nameInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+        self.nameInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+        self.nameInputController.inlinePlaceholderColor = [UIColor redColor];
+        return;
+    } else {
+        self.nameField.placeholder = @"Name";
+        self.nameInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
+        self.nameInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
+        self.nameInputController.inlinePlaceholderColor = [UIColor whiteColor];
+    }
+    NSString *num = self.numField.text;
+    if ([num stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0 || self.numInputController.floatingPlaceholderNormalColor == [UIColor redColor]) {
+        if(self->phone) {
+            self.numField.placeholder = @"*Please enter a valid phone number.";
+            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+        } else {
+            self.numField.placeholder = @"*Please enter a valid email.";
+            self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+            self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+            self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+        }
+        return;
+    }
+    if ([self.ageField.text length]==0) {
+        self.ageField.placeholder = @"*Please enter your age.";
+        self.ageInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+        self.ageInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+        self.ageInputController.inlinePlaceholderColor = [UIColor redColor];
+        return;
+    }
+
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    jsonDict[@"name"] = name;
+    jsonDict[@"birthdate"] = self.ageField.text;
+    if (self->phone) jsonDict[@"phone"] = num;
+    else jsonDict[@"email"] = num;
+
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:nil];
+
+
+    [self.request setHTTPBody: jsonData];
+
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:self.request
+        completionHandler:^(NSData * _Nullable data,
+                            NSURLResponse * _Nullable response,
+                            NSError * _Nullable error) {
+            NSLog(@"Yay, done! Check for errors in response!");
+
+            NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
+            NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
+            NSDictionary *forJSONObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            if (asHTTPResponse.statusCode == 500){
+                if (self->phone) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Phone number already in use" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+                    [alert addAction:defaultAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                } else {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Email address already in use" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+                    [alert addAction:defaultAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            } else {
+//                NSCache *cache = [[NSCache alloc] init];
+//                [cache setObject:forJSONObject[@"insertId"] forKey:@"userId"];
+////                [cache objectForKey:@"insertId"];
+                NSLog(@"User Id: %@", forJSONObject[@"insertId"]);
+//                [self pushSetPasswordViewController];
+            }
+        }];
+    [task resume];
 }
 
 -(void) nameFieldDidChange{
@@ -341,48 +342,42 @@
         self.nameInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
         self.nameInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
         self.nameInputController.inlinePlaceholderColor = [UIColor whiteColor];
-        return;
     } else {
         self.nameField.placeholder = @"*Please enter a name";
         self.nameInputController.floatingPlaceholderActiveColor = [UIColor redColor];
         self.nameInputController.floatingPlaceholderNormalColor = [UIColor redColor];
         self.nameInputController.inlinePlaceholderColor = [UIColor redColor];
     }
+    [self configureButton];
 };
 
 -(void) numFieldDidChange {
     if ([self.numField.placeholder isEqualToString:@"Phone Number"] || [self.numField.placeholder isEqualToString: @"*Please enter a valid phone number."]) {
         NSString *phoneRegex = @"^((\\+)|(0)|(00))[0-9]{6,14}$";
         NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
-        if ([phoneTest evaluateWithObject:self.numField.text]) {
-            self.numField.placeholder = @"Phone Number";
-            self.numInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
-            self.numInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
-            self.numInputController.inlinePlaceholderColor = [UIColor whiteColor];
-            return;
-        } else {
+        if (![phoneTest evaluateWithObject:self.numField.text]) {
             self.numField.placeholder = @"*Please enter a valid phone number.";
             self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
             self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
             self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+        } else {
+            [self validate];
         }
     } else {
         NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
         NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
         NSString *emailRegex = NO ? stricterFilterString : laxString;
         NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-        if ([emailTest evaluateWithObject:self.numField.text]) {
-            self.numField.placeholder = @"Email";
-            self.numInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
-            self.numInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
-            self.numInputController.inlinePlaceholderColor = [UIColor whiteColor];
-        } else {
+        if (![emailTest evaluateWithObject:self.numField.text]) {
             self.numField.placeholder = @"*Please enter a valid email.";
             self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
             self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
             self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+        } else {
+            [self validate];
         }
     }
+    [self configureButton];
 };
 
 -(void) dateFieldDidChange:(UIDatePicker *)sender {
@@ -393,6 +388,7 @@
         self.ageInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
         self.ageInputController.inlinePlaceholderColor = [UIColor whiteColor];
     }
+    [self configureButton];
 }
 
 -(void) changePads {
@@ -486,6 +482,64 @@
 -(void) pushSetPasswordViewController{
     SetPasswordViewController *pwViewController = [[SetPasswordViewController alloc] init];
     [self.navigationController pushViewController:pwViewController animated:true];
+}
+
+-(void) configureButton{
+    if (true) {
+        self.next.enabled = YES;
+    } else {
+        self.next.enabled = NO;
+    }
+}
+
+-(void) validate {
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *jsonSubDict = [[NSMutableDictionary alloc] init];
+    if (self->phone) jsonSubDict[@"phone"] = self.numField.text;
+    else jsonSubDict[@"email"] = self.numField.text;
+    jsonDict[@"validate"] = jsonSubDict;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:nil];
+
+
+    [self.request setHTTPBody: jsonData];
+
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:self.request
+        completionHandler:^(NSData * _Nullable data,
+                            NSURLResponse * _Nullable response,
+                            NSError * _Nullable error) {
+            NSLog(@"Yay, done! Check for errors in response!");
+
+            NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
+            NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
+        if (self->phone) {
+            if (asHTTPResponse.statusCode == 500){
+                self.numField.placeholder = @"Phone Number ALready Exists";
+                self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+                self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+                self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+            } else {
+                self.numField.placeholder = @"Phone Number";
+                self.numInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
+                self.numInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
+                self.numInputController.inlinePlaceholderColor = [UIColor whiteColor];
+            }
+        } else {
+            if (asHTTPResponse.statusCode == 500){
+                self.numField.placeholder = @"Email ALready Exists";
+                self.numInputController.floatingPlaceholderActiveColor = [UIColor redColor];
+                self.numInputController.floatingPlaceholderNormalColor = [UIColor redColor];
+                self.numInputController.inlinePlaceholderColor = [UIColor redColor];
+            } else {
+                self.numField.placeholder = @"Email";
+                self.numInputController.floatingPlaceholderActiveColor = [UIColor whiteColor];
+                self.numInputController.floatingPlaceholderNormalColor = [UIColor whiteColor];
+                self.numInputController.inlinePlaceholderColor = [UIColor whiteColor];
+            }
+        }
+        }];
+    [task resume];
 }
 
 @end
