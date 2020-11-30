@@ -3,6 +3,11 @@ PODS:
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
+  - MaterialComponents/ActivityIndicator (118.1.0):
+    - MaterialComponents/Palettes
+    - MaterialComponents/private/Application
+    - MDFInternationalization
+    - MotionAnimator (~> 2.0)
   - MaterialComponents/AnimationTiming (118.1.0)
   - MaterialComponents/Availability (118.1.0)
   - MaterialComponents/Buttons (118.1.0):
@@ -70,6 +75,9 @@ PODS:
     - MDFTextAccessibility
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
+  - MotionAnimator (2.8.1):
+    - MotionInterchange (~> 1.6)
+  - MotionInterchange (1.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -77,6 +85,7 @@ PODS:
 DEPENDENCIES:
   - FontAwesome-iOS
   - IGListKit (~> 4.0.0)
+  - MaterialComponents/ActivityIndicator
   - MaterialComponents/Buttons
   - MaterialComponents/Dialogs
   - MaterialComponents/TextFields
@@ -90,6 +99,8 @@ SPEC REPOS:
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
+    - MotionAnimator
+    - MotionInterchange
     - Yoga
     - YogaKit
 
@@ -100,9 +111,11 @@ SPEC CHECKSUMS:
   MaterialComponents: e4a7c8b5eabe7856ef58f632fb5800a229bda5be
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  MotionAnimator: ee16aa30567c5bae0fb2750c132915829cfaaf8a
+  MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: ff0e1b9e7f1dce2adb34d735e16747b69dc3a554
+PODFILE CHECKSUM: 69c0085b01bd5c46a22aeedcbc1be69bc7440367
 
 COCOAPODS: 1.9.3

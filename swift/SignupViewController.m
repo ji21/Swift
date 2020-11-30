@@ -49,11 +49,6 @@
     
     self->phone=YES;
     
-//    self.label = [[MDCButton alloc] init];
-//    self.label.tintColor = [UIColor whiteColor];
-//    [self.label addTarget:self action:@selector(labelTapped) forControlEvents:UIControlEventTouchUpInside];
-//    self.label.backgroundColor = [UIColor yellowColor];
-//    self.label.hidden = YES;
     
     self.label = [[MDCButton alloc] init];
     [self.label setBackgroundColor:[UIColor clearColor]];
@@ -80,7 +75,13 @@
     
     //style heading
     
-
+    self.indicator = [[MDCActivityIndicator alloc] init];
+    [self.indicator sizeToFit];
+    self.numField.clearButtonMode = UITextFieldViewModeNever;
+    [self.numField setRightView:self.indicator];
+    self.numField.rightViewMode = UITextFieldViewModeAlways;
+    self.indicator.indicatorMode = MDCActivityIndicatorModeDeterminate;
+    self.indicator.progress = 1.0;
     
     [self styleNextButton];
     [self layoutBotView];
@@ -167,7 +168,8 @@
     self.nameField.placeholder = @"Name";
     self.nameField.textColor = [UIColor whiteColor];
     [self.nameField setEnabled:YES];
-    
+
+
     
     //namefield input controller
     self.nameInputController = [[MDCTextInputControllerFilled alloc] initWithTextInput:self.nameField];
@@ -182,6 +184,7 @@
     [self.nameField addTarget:self
               action:@selector(nameFieldDidChange)
     forControlEvents:UIControlEventEditingChanged];
+    
     [self.midSubView addSubview:self.nameField];
 }
 
@@ -290,7 +293,6 @@
         self.ageInputController.inlinePlaceholderColor = [UIColor redColor];
         return;
     }
-
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     jsonDict[@"name"] = name;
     jsonDict[@"birthdate"] = self.ageField.text;
@@ -309,7 +311,6 @@
                             NSURLResponse * _Nullable response,
                             NSError * _Nullable error) {
             NSLog(@"Yay, done! Check for errors in response!");
-
             NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
             NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
             NSDictionary *forJSONObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
@@ -509,7 +510,7 @@
         completionHandler:^(NSData * _Nullable data,
                             NSURLResponse * _Nullable response,
                             NSError * _Nullable error) {
-            NSLog(@"Yay, done! Check for errors in response!");
+            [self.indicator stopAnimating];
 
             NSHTTPURLResponse *asHTTPResponse = (NSHTTPURLResponse *) response;
             NSLog(@"The status code: %ld", asHTTPResponse.statusCode);
@@ -539,6 +540,8 @@
             }
         }
         }];
+    NSLog(@"start animating pls...");
+    [self.indicator startAnimating];
     [task resume];
 }
 

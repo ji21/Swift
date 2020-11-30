@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MaterialButtons.h"
 #import "MaterialTextFields.h"
+#import "MaterialActivityIndicator.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MDCTextInputControllerFilled *ageInputController;
 
 @property (nonatomic, strong) MDCButton *next;
+
+@property (nonatomic, strong) MDCActivityIndicator *indicator;
+
 
 @property (nonatomic, strong) MDCButton *label;
 @property (nonatomic, strong) UILabel *heading;

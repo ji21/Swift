@@ -8,4 +8,5 @@ target 'swift' do
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/TextFields'
   pod 'FontAwesome-iOS'
+  pod 'MaterialComponents/ActivityIndicator'
 end
