@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SwiftViewController.h"
+#import "AuthViewController.h"
 
 @interface ViewController ()
 
@@ -17,8 +17,8 @@
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        SwiftViewController *swiftVC = [[SwiftViewController alloc] init];
-        [self addChildViewController:swiftVC];
+        AuthViewController *authVC = [[AuthViewController alloc] init];
+        [self addChildViewController:authVC];
     }
     return self;
 }
