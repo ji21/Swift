@@ -1,5 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-swift/Pods-swift-frameworks.sh
-${BUILT_PRODUCTS_DIR}/FontAwesome-iOS/FontAwesome_iOS.framework
 ${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework
 ${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework
 ${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework

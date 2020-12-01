@@ -2,7 +2,7 @@
 //  HomeViewController.m
 //  swift
 //
-//  Created by Jeffrey Ip on 30/11/2020.
+//  Created by Jeffrey Ip on 01/12/2020.
 //  Copyright © 2020 Jefferson. All rights reserved.
 //
 
@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    self.view.backgroundColor = [UIColor blackColor];
 }
 
 /*

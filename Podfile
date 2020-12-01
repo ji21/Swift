@@ -7,6 +7,6 @@ target 'swift' do
   pod 'MaterialComponents/Dialogs'
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/TextFields'
-  pod 'FontAwesome-iOS'
   pod 'MaterialComponents/ActivityIndicator'
+  pod 'MaterialComponents/BottomNavigation'
 end

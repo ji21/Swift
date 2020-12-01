@@ -1,5 +1,5 @@
 //
-//  HomeViewController.h
+//  SettingsTableViewController.h
 //  swift
 //
 //  Created by Jeffrey Ip on 01/12/2020.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeViewController : UIViewController
+@interface SettingsTableViewController : UITableViewController
 
 @end
 

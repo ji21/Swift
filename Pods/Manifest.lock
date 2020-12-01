@@ -1,5 +1,4 @@
 PODS:
-  - FontAwesome-iOS (0.0.4)
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
@@ -10,6 +9,17 @@ PODS:
     - MotionAnimator (~> 2.0)
   - MaterialComponents/AnimationTiming (118.1.0)
   - MaterialComponents/Availability (118.1.0)
+  - MaterialComponents/BottomNavigation (118.1.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/Palettes
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFInternationalization
   - MaterialComponents/Buttons (118.1.0):
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
@@ -83,9 +93,9 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
-  - FontAwesome-iOS
   - IGListKit (~> 4.0.0)
   - MaterialComponents/ActivityIndicator
+  - MaterialComponents/BottomNavigation
   - MaterialComponents/Buttons
   - MaterialComponents/Dialogs
   - MaterialComponents/TextFields
@@ -93,7 +103,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - FontAwesome-iOS
     - IGListDiffKit
     - IGListKit
     - MaterialComponents
@@ -105,7 +114,6 @@ SPEC REPOS:
     - YogaKit
 
 SPEC CHECKSUMS:
-  FontAwesome-iOS: 0fd503f7ae46780e17c2dd98e70fed30b5f90322
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   MaterialComponents: e4a7c8b5eabe7856ef58f632fb5800a229bda5be
@@ -116,6 +124,6 @@ SPEC CHECKSUMS:
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 69c0085b01bd5c46a22aeedcbc1be69bc7440367
+PODFILE CHECKSUM: 41331985181e524654de940374948e41a06413ff
 
 COCOAPODS: 1.9.3
