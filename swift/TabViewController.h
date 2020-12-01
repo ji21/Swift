@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIView *topBorder;
 
 -(void) tapped;
--(void) layoutSubViews;
 
 @end
 

@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileTableViewController : UITableViewController
 
+@property(nonatomic, strong)UIView *botView;
+@property(nonatomic, strong)UIView *infoView;
+
+-(void) layoutbotView;
+
 @end
 
 NS_ASSUME_NONNULL_END

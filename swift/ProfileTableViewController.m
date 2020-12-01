@@ -7,6 +7,7 @@
 //
 
 #import "ProfileTableViewController.h"
+#import <YogaKit/UIView+Yoga.h>
 
 @interface ProfileTableViewController ()
 
@@ -22,7 +23,33 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.view.backgroundColor = [UIColor yellowColor];
+    self.view.backgroundColor = [[UIColor alloc]initWithRed: 217.0/255.0 green:65.0/255.0 blue:100.0/255.0 alpha:1.0];
+    self.tableView.separatorColor = [UIColor clearColor];
+    
+    self.botView = [[UIView alloc] init];
+    [self.view addSubview:self.botView];
+//    [self.botView setBackgroundColor:[[UIColor alloc]initWithRed: 217.0/255.0 green:65.0/255.0 blue:100.0/255.0 alpha:1.0]];
+    [self.botView setBackgroundColor:[UIColor blueColor]];
+    [self.botView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.1, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*1.5)];
+    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.1, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [self.infoView setBackgroundColor:[UIColor whiteColor]];
+    [self.infoView.layer setCornerRadius:[UIScreen mainScreen].bounds.size.height*0.05];
+    [self.botView addSubview:self.infoView];
+    [self layoutbotView];
+//    self.botView.layer.cornerRadius = self.botView.bounds.size.width*0.1;
+}
+
+
+-(void) layoutbotView{
+    [self.botView configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.flexDirection = YGFlexDirectionColumn;
+    }];
+    
+    
+
+    [self.botView.yoga applyLayoutPreservingOrigin:YES];
+
 }
 
 #pragma mark - Table view data source

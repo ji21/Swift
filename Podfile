@@ -9,4 +9,5 @@ target 'swift' do
   pod 'MaterialComponents/TextFields'
   pod 'MaterialComponents/ActivityIndicator'
   pod 'MaterialComponents/BottomNavigation'
+  pod 'MaterialComponents/NavigationDrawer'
 end

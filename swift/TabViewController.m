@@ -29,7 +29,7 @@
     SubscribeViewController *subVC = [[SubscribeViewController alloc] init];
     MessagesTableViewController *messagesVC = [[MessagesTableViewController alloc] init];
     ProfileTableViewController *profileVC = [[ProfileTableViewController alloc] init];
-//    self.selectedViewController
+
     
     NSArray *viewControllers = [NSArray arrayWithObjects:homeVC, storiesVC, subVC, messagesVC, profileVC, nil];
     [self setViewControllers:viewControllers animated:NO];
@@ -59,7 +59,7 @@
                                         tag:0];
     
     
-    self.profileItem = [[UITabBarItem alloc] initWithTitle:@"Settings"
+    self.profileItem = [[UITabBarItem alloc] initWithTitle:@"Profile"
                                                              image:[UIImage imageNamed:@"ic_reader"]
                                                                tag:0];
     
@@ -68,7 +68,7 @@
 
     self.bottomNavBar.selectedItem = self.messagesItem;
     [self.bottomNavBar setTitleVisibility:MDCBottomNavigationBarTitleVisibilityAlways];
-    [self.bottomNavBar setItemsHorizontalPadding:10.0];
+    [self.bottomNavBar setItemsHorizontalPadding:4.0];
     [self.bottomNavBar setTruncatesLongTitles:NO];
     [self.bottomNavBar setEnableRippleBehavior:NO];
 
@@ -81,7 +81,10 @@
     
     UIFont *helvFont = [UIFont fontWithName:@"HelveticaNeue" size:10.0];
     [self.bottomNavBar setItemTitleFont:helvFont];
+
 }
+
+
 
 
 - (void)viewWillLayoutSubviews {
@@ -115,15 +118,15 @@
               didSelectItem:(nonnull UITabBarItem *)item {
     NSLog(@"%@", item.title);
     if (item.title==@"Home") {
-        self.selectedIndex = 1;
+        self.selectedIndex = 0;
     } else if (item.title==@"Subscriptions") {
-        self.selectedIndex = 3;
-    } else if (item.title==@"My Stories") {
         self.selectedIndex = 2;
+    } else if (item.title==@"My Stories") {
+        self.selectedIndex = 1;
     } else if (item.title == @"Profile") {
-        self.selectedIndex = 5;
-    } else if (item.title == @"Messages") {
         self.selectedIndex = 4;
+    } else if (item.title == @"Messages") {
+        self.selectedIndex = 3;
     }
 }
 @end
