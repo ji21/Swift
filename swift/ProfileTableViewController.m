@@ -6,13 +6,13 @@
 //  Copyright © 2020 Jefferson. All rights reserved.
 //
 
-#import "SettingsTableViewController.h"
+#import "ProfileTableViewController.h"
 
-@interface SettingsTableViewController ()
+@interface ProfileTableViewController ()
 
 @end
 
-@implementation SettingsTableViewController
+@implementation ProfileTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

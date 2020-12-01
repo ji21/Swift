@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UITabBarItem *storiesItem;
 @property (nonatomic, strong) UITabBarItem *messagesItem;
 @property (nonatomic, strong) UITabBarItem *subItem;
-@property (nonatomic, strong) UITabBarItem *settingsItem;
+@property (nonatomic, strong) UITabBarItem *profileItem;
+@property (nonatomic, strong) UIView *topBorder;
 
 -(void) tapped;
 -(void) layoutSubViews;

@@ -11,7 +11,7 @@
 		4F3D64E8253E38D4000AA6D7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D64E7253E38D4000AA6D7 /* LoginViewController.m */; };
 		4F44BA5025757F7F00053B9F /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F44BA4F25757F7F00053B9F /* TabViewController.m */; };
 		4F44BA6B2575CB2700053B9F /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F44BA6A2575CB2700053B9F /* HomeViewController.m */; };
-		4F44BA6F2575CB3800053B9F /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F44BA6E2575CB3800053B9F /* SettingsTableViewController.m */; };
+		4F44BA6F2575CB3800053B9F /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F44BA6E2575CB3800053B9F /* ProfileTableViewController.m */; };
 		4F58860B2538FA5700FDEB48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F58860A2538FA5700FDEB48 /* AppDelegate.m */; };
 		4F58860E2538FA5700FDEB48 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F58860D2538FA5700FDEB48 /* SceneDelegate.m */; };
 		4F5886112538FA5700FDEB48 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5886102538FA5700FDEB48 /* ViewController.m */; };
@@ -37,8 +37,8 @@
 		4F44BA4F25757F7F00053B9F /* TabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
 		4F44BA692575CB2700053B9F /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		4F44BA6A2575CB2700053B9F /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		4F44BA6D2575CB3800053B9F /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
-		4F44BA6E2575CB3800053B9F /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		4F44BA6D2575CB3800053B9F /* ProfileTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
+		4F44BA6E2575CB3800053B9F /* ProfileTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
 		4F5886062538FA5700FDEB48 /* swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F5886092538FA5700FDEB48 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F58860A2538FA5700FDEB48 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -133,8 +133,8 @@
 				4F44BA4F25757F7F00053B9F /* TabViewController.m */,
 				4F44BA692575CB2700053B9F /* HomeViewController.h */,
 				4F44BA6A2575CB2700053B9F /* HomeViewController.m */,
-				4F44BA6D2575CB3800053B9F /* SettingsTableViewController.h */,
-				4F44BA6E2575CB3800053B9F /* SettingsTableViewController.m */,
+				4F44BA6D2575CB3800053B9F /* ProfileTableViewController.h */,
+				4F44BA6E2575CB3800053B9F /* ProfileTableViewController.m */,
 				4FFA68C72576707000DCC33F /* SubscribeViewController.h */,
 				4FFA68C82576707000DCC33F /* SubscribeViewController.m */,
 				4FFA68CB2576708C00DCC33F /* StoriesViewController.h */,
@@ -280,7 +280,7 @@
 				4F44BA5025757F7F00053B9F /* TabViewController.m in Sources */,
 				4F58861C2538FA5800FDEB48 /* main.m in Sources */,
 				4F30236E253B782D00C9810E /* SignupViewController.m in Sources */,
-				4F44BA6F2575CB3800053B9F /* SettingsTableViewController.m in Sources */,
+				4F44BA6F2575CB3800053B9F /* ProfileTableViewController.m in Sources */,
 				4F58860E2538FA5700FDEB48 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
