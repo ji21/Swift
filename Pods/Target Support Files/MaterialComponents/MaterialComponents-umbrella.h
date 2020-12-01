@@ -49,6 +49,14 @@
 #import "MDCInkTouchControllerDelegate.h"
 #import "MDCInkView.h"
 #import "MDCInkViewDelegate.h"
+#import "MaterialNavigationDrawer.h"
+#import "MDCBottomDrawerHeader.h"
+#import "MDCBottomDrawerPresentationController.h"
+#import "MDCBottomDrawerPresentationControllerDelegate.h"
+#import "MDCBottomDrawerState.h"
+#import "MDCBottomDrawerTransitionController.h"
+#import "MDCBottomDrawerViewController.h"
+#import "MDCBottomDrawerViewControllerDelegate.h"
 #import "MaterialPalettes.h"
 #import "MDCPalettes.h"
 #import "MaterialRipple.h"
@@ -116,6 +124,8 @@
 #import "MDCKeyboardWatcher.h"
 #import "MaterialMath.h"
 #import "MDCMath.h"
+#import "MaterialUIMetrics.h"
+#import "MDCLayoutMetrics.h"
 
 FOUNDATION_EXPORT double MaterialComponentsVersionNumber;
 FOUNDATION_EXPORT const unsigned char MaterialComponentsVersionString[];

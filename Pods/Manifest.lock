@@ -49,6 +49,12 @@ PODS:
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
+  - MaterialComponents/NavigationDrawer (118.1.0):
+    - MaterialComponents/Elevation
+    - MaterialComponents/Palettes
+    - MaterialComponents/private/Math
+    - MaterialComponents/private/UIMetrics
+    - MaterialComponents/ShadowLayer
   - MaterialComponents/Palettes (118.1.0)
   - MaterialComponents/private/Application (118.1.0)
   - MaterialComponents/private/Color (118.1.0):
@@ -56,6 +62,8 @@ PODS:
   - MaterialComponents/private/KeyboardWatcher (118.1.0):
     - MaterialComponents/private/Application
   - MaterialComponents/private/Math (118.1.0)
+  - MaterialComponents/private/UIMetrics (118.1.0):
+    - MaterialComponents/private/Application
   - MaterialComponents/Ripple (118.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
@@ -98,6 +106,7 @@ DEPENDENCIES:
   - MaterialComponents/BottomNavigation
   - MaterialComponents/Buttons
   - MaterialComponents/Dialogs
+  - MaterialComponents/NavigationDrawer
   - MaterialComponents/TextFields
   - YogaKit (~> 1.18.1)
 
@@ -124,6 +133,6 @@ SPEC CHECKSUMS:
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 41331985181e524654de940374948e41a06413ff
+PODFILE CHECKSUM: 2f423e18ed9ed5d203303a88c1687624bf898122
 
 COCOAPODS: 1.9.3

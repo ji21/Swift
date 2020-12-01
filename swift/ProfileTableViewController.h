@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MaterialNavigationDrawer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong)UIView *botView;
 @property(nonatomic, strong)UIView *infoView;
+@property(nonatomic, strong)MDCBottomDrawerViewController *drawer;
 
 -(void) layoutbotView;
 

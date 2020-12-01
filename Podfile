@@ -10,4 +10,5 @@ target 'swift' do
   pod 'MaterialComponents/ActivityIndicator'
   pod 'MaterialComponents/BottomNavigation'
   pod 'MaterialComponents/NavigationDrawer'
+  pod 'MaterialComponents/AppBar'
 end
