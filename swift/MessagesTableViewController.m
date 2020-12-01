@@ -1,18 +1,18 @@
 //
-//  SettingsTableViewController.m
+//  MessagesTableViewController.m
 //  swift
 //
 //  Created by Jeffrey Ip on 01/12/2020.
 //  Copyright © 2020 Jefferson. All rights reserved.
 //
 
-#import "SettingsTableViewController.h"
+#import "MessagesTableViewController.h"
 
-@interface SettingsTableViewController ()
+@interface MessagesTableViewController ()
 
 @end
 
-@implementation SettingsTableViewController
+@implementation MessagesTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,7 +22,6 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.view.backgroundColor = [UIColor yellowColor];
 }
 
 #pragma mark - Table view data source

@@ -15,7 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MDCBottomNavigationBar *bottomNavBar;
 
+@property (nonatomic, strong) UITabBarItem *homeItem;
+@property (nonatomic, strong) UITabBarItem *storiesItem;
+@property (nonatomic, strong) UITabBarItem *messagesItem;
+@property (nonatomic, strong) UITabBarItem *subItem;
+@property (nonatomic, strong) UITabBarItem *settingsItem;
+
 -(void) tapped;
+-(void) layoutSubViews;
 
 @end
 

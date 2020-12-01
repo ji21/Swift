@@ -1,23 +1,23 @@
 //
-//  HomeViewController.m
+//  SubscribeViewController.m
 //  swift
 //
 //  Created by Jeffrey Ip on 01/12/2020.
 //  Copyright © 2020 Jefferson. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "SubscribeViewController.h"
 
-@interface HomeViewController ()
+@interface SubscribeViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation SubscribeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blueColor];
 }
 
 /*
