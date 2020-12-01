@@ -58,6 +58,8 @@
     [self.bottomNavBar setTitleVisibility:MDCBottomNavigationBarTitleVisibilityAlways];
     [self.bottomNavBar setItemsHorizontalPadding:18.0];
     [self.bottomNavBar setTruncatesLongTitles:NO];
+    [self.bottomNavBar setBarHeight:62.0];
+    [self.bottomNavBar setItemsContentVerticalMargin:0.0];
 //    [self.bottomNavBar addSubview:homeVC];
 }
 
