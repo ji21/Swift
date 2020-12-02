@@ -8,6 +8,17 @@ PODS:
     - MDFInternationalization
     - MotionAnimator (~> 2.0)
   - MaterialComponents/AnimationTiming (118.1.0)
+  - MaterialComponents/AppBar (118.1.0):
+    - MaterialComponents/FlexibleHeader
+    - MaterialComponents/HeaderStackView
+    - MaterialComponents/NavigationBar
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Icons/ic_arrow_back
+    - MaterialComponents/private/UIMetrics
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFInternationalization
   - MaterialComponents/Availability (118.1.0)
   - MaterialComponents/BottomNavigation (118.1.0):
     - MaterialComponents/Availability
@@ -19,6 +30,10 @@ PODS:
     - MaterialComponents/ShadowElevations
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
+    - MDFInternationalization
+  - MaterialComponents/ButtonBar (118.1.0):
+    - MaterialComponents/Buttons
+    - MaterialComponents/private/Application
     - MDFInternationalization
   - MaterialComponents/Buttons (118.1.0):
     - MaterialComponents/Elevation
@@ -45,10 +60,32 @@ PODS:
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
+  - MaterialComponents/FlexibleHeader (118.1.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/Elevation
+    - "MaterialComponents/FlexibleHeader+ShiftBehavior"
+    - "MaterialComponents/FlexibleHeader+ShiftBehaviorEnabledWithStatusBar"
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Math
+    - MaterialComponents/private/UIMetrics
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MDFTextAccessibility
+  - "MaterialComponents/FlexibleHeader+ShiftBehavior (118.1.0)"
+  - "MaterialComponents/FlexibleHeader+ShiftBehaviorEnabledWithStatusBar (118.1.0)":
+    - "MaterialComponents/FlexibleHeader+ShiftBehavior"
+  - MaterialComponents/HeaderStackView (118.1.0)
   - MaterialComponents/Ink (118.1.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
+  - MaterialComponents/NavigationBar (118.1.0):
+    - MaterialComponents/ButtonBar
+    - MaterialComponents/Elevation
+    - MaterialComponents/private/Math
+    - MaterialComponents/Typography
+    - MDFInternationalization
+    - MDFTextAccessibility
   - MaterialComponents/NavigationDrawer (118.1.0):
     - MaterialComponents/Elevation
     - MaterialComponents/Palettes
@@ -59,6 +96,9 @@ PODS:
   - MaterialComponents/private/Application (118.1.0)
   - MaterialComponents/private/Color (118.1.0):
     - MaterialComponents/Availability
+  - MaterialComponents/private/Icons/Base (118.1.0)
+  - MaterialComponents/private/Icons/ic_arrow_back (118.1.0):
+    - MaterialComponents/private/Icons/Base
   - MaterialComponents/private/KeyboardWatcher (118.1.0):
     - MaterialComponents/private/Application
   - MaterialComponents/private/Math (118.1.0)
@@ -103,6 +143,7 @@ PODS:
 DEPENDENCIES:
   - IGListKit (~> 4.0.0)
   - MaterialComponents/ActivityIndicator
+  - MaterialComponents/AppBar
   - MaterialComponents/BottomNavigation
   - MaterialComponents/Buttons
   - MaterialComponents/Dialogs
@@ -133,6 +174,6 @@ SPEC CHECKSUMS:
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 2f423e18ed9ed5d203303a88c1687624bf898122
+PODFILE CHECKSUM: e10fb095cdd081d8f2b9874935c5a647207a319d
 
 COCOAPODS: 1.9.3

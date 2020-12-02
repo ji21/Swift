@@ -17,28 +17,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"jehafgrsjwafk");
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.view.backgroundColor = [[UIColor alloc]initWithRed: 217.0/255.0 green:65.0/255.0 blue:100.0/255.0 alpha:1.0];
+    self.view.backgroundColor = [[UIColor alloc]initWithRed: 239.0/255.0 green:67.0/255.0 blue:128.0/255.0 alpha:1.0];
     self.tableView.separatorColor = [UIColor clearColor];
     
     self.botView = [[UIView alloc] init];
     [self.view addSubview:self.botView];
-//    [self.botView setBackgroundColor:[[UIColor alloc]initWithRed: 217.0/255.0 green:65.0/255.0 blue:100.0/255.0 alpha:1.0]];
-    [self.botView setBackgroundColor:[UIColor blueColor]];
-    [self.botView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.1, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*1.5)];
+    [self.botView setBackgroundColor:[[UIColor alloc]initWithRed: 239.0/255.0 green:67.0/255.0 blue:128.0/255.0 alpha:1.0]];
+//    [self.botView setBackgroundColor:[UIColor blueColor]];
+    [self.botView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.05, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*1.5)];
     self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.1, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     [self.infoView setBackgroundColor:[UIColor whiteColor]];
     [self.infoView.layer setCornerRadius:[UIScreen mainScreen].bounds.size.height*0.05];
     [self.botView addSubview:self.infoView];
     [self layoutbotView];
-//    self.botView.layer.cornerRadius = self.botView.bounds.size.width*0.1;
+    
+
+    self.navigationController =
+        [[MDCAppBarNavigationController alloc] init];
+    self.appBarViewController = [[MDCAppBarViewController alloc] init];
+    
+    self.navigationController.delegate = self;
+    [self.navigationController pushViewController:self animated:YES];
+    [self appBarNavigationController:self.navigationController willAddAppBarViewController:self.appBarViewController asChildOfViewController:self];
+    
+//    #pragma mark - MDCAppBarNavigationControllerDelegate
+
 }
 
+- (void)appBarNavigationController:(MDCAppBarNavigationController *)navigationController
+       willAddAppBarViewController:(MDCAppBarViewController *)appBarViewController
+           asChildOfViewController:(UIViewController *)viewController {
+    appBarViewController.headerView.backgroundColor = [UIColor whiteColor];
+    appBarViewController.headerView.minimumHeight = 80;
+
+}
 
 -(void) layoutbotView{
     [self.botView configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
