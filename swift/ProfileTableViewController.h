@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProfileTableViewController : UITableViewController
+@interface ProfileTableViewController : UINavigationController
 
 @property(nonatomic, strong)UIView *botView;
 @property(nonatomic, strong)UIView *infoView;

@@ -18,38 +18,58 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [[UIColor alloc]initWithRed: 239.0/255.0 green:67.0/255.0 blue:128.0/255.0 alpha:1.0];
-    self.tableView.separatorColor = [UIColor clearColor];
-    
-    self.botView = [[UIView alloc] init];
-    [self.view addSubview:self.botView];
-    [self.botView setBackgroundColor:[[UIColor alloc]initWithRed: 239.0/255.0 green:67.0/255.0 blue:128.0/255.0 alpha:1.0]];
-//    [self.botView setBackgroundColor:[UIColor blueColor]];
-    [self.botView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.05, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*1.5)];
-    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.1, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-    [self.infoView setBackgroundColor:[UIColor whiteColor]];
-    [self.infoView.layer setCornerRadius:[UIScreen mainScreen].bounds.size.height*0.05];
-    [self.botView addSubview:self.infoView];
-    [self layoutbotView];
-    
+    [self.navigationBar setTranslucent:false];
+    [self.navigationBar setValue:@(YES) forKeyPath:@"hidesShadow"];
+    self.navigationBar.barTintColor = [[UIColor alloc]initWithRed: 239.0/255.0 green:67.0/255.0 blue:128.0/255.0 alpha:1.0];
 
-    self.navigationController =
-        [[MDCAppBarNavigationController alloc] init];
-    self.appBarViewController = [[MDCAppBarViewController alloc] init];
+    UITableViewController *tableView = [[UITableViewController alloc] init];
+    tableView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    tableView.view.backgroundColor = [[UIColor alloc]initWithRed: 239.0/255.0 green:67.0/255.0 blue:128.0/255.0 alpha:1.0];
+    [self.view addSubview:tableView.view];
+    [self.view bringSubviewToFront:self.navigationBar];
+    tableView.tableView.separatorColor = [UIColor clearColor];
+    self.botView = [[UIView alloc] init];
+    [tableView.view addSubview:self.botView];
+    [self.botView setBackgroundColor:[UIColor whiteColor]];
+    [self.botView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.2, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*1.5)];
+    [self.botView.layer setCornerRadius:[UIScreen mainScreen].bounds.size.height*0.05];
+//    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.1, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//    [self.infoView setBackgroundColor:[UIColor whiteColor]];
+//    [self.infoView.layer setCornerRadius:[UIScreen mainScreen].bounds.size.height*0.05];
+//    [self.botView addSubview:self.infoView];
+//    [self layoutbotView];
+
+
+
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-30, 0, 30, 30)];
+    btn.backgroundColor = [UIColor blackColor];
+    [btn setTitle:@"ek" forState:UIControlStateNormal];
+    [self.navigationBar addSubview:btn];
     
-    self.navigationController.delegate = self;
-    [self.navigationController pushViewController:self animated:YES];
-    [self appBarNavigationController:self.navigationController willAddAppBarViewController:self.appBarViewController asChildOfViewController:self];
     
-//    #pragma mark - MDCAppBarNavigationControllerDelegate
+//    self.navigationController = [[MDCAppBarNavigationController alloc] init];
+//    self.appBarViewController = [[MDCAppBarViewController alloc] init];
+//    self.appBarViewController.inferTopSafeAreaInsetFromViewController = YES;
+//    self.appBarViewController.headerView.minMaxHeightIncludesSafeArea = NO;
+//    self.navigationController.delegate = self;
+//    [self.navigationController pushViewController:self animated:YES];
+//    [self appBarNavigationController:self.navigationController willAddAppBarViewController:self.appBarViewController asChildOfViewController:self];
+//
+//    self.navigationItem.rightBarButtonItem = flipButton;
+////
 
 }
 
 - (void)appBarNavigationController:(MDCAppBarNavigationController *)navigationController
        willAddAppBarViewController:(MDCAppBarViewController *)appBarViewController
            asChildOfViewController:(UIViewController *)viewController {
+//    navigationController.translatesAutoresizingMaskIntoConstraints = NO
+    
+    
     appBarViewController.headerView.backgroundColor = [UIColor whiteColor];
     appBarViewController.headerView.minimumHeight = 80;
 
+    [self.view layoutIfNeeded];
 }
 
 -(void) layoutbotView{
