@@ -33,44 +33,88 @@
     [self.botView setBackgroundColor:[UIColor whiteColor]];
     [self.botView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.2, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*1.5)];
     [self.botView.layer setCornerRadius:[UIScreen mainScreen].bounds.size.height*0.05];
-//    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.1, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-//    [self.infoView setBackgroundColor:[UIColor whiteColor]];
-//    [self.infoView.layer setCornerRadius:[UIScreen mainScreen].bounds.size.height*0.05];
-//    [self.botView addSubview:self.infoView];
-//    [self layoutbotView];
-
 
 
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-30, 0, 30, 30)];
     btn.backgroundColor = [UIColor blackColor];
     [btn setTitle:@"ek" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(presentDrawer) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationBar addSubview:btn];
     
+    self.drawer = [[MDCBottomDrawerViewController alloc] init];
     
-//    self.navigationController = [[MDCAppBarNavigationController alloc] init];
-//    self.appBarViewController = [[MDCAppBarViewController alloc] init];
-//    self.appBarViewController.inferTopSafeAreaInsetFromViewController = YES;
-//    self.appBarViewController.headerView.minMaxHeightIncludesSafeArea = NO;
-//    self.navigationController.delegate = self;
-//    [self.navigationController pushViewController:self animated:YES];
-//    [self appBarNavigationController:self.navigationController willAddAppBarViewController:self.appBarViewController asChildOfViewController:self];
-//
-//    self.navigationItem.rightBarButtonItem = flipButton;
-////
+
+    self.drawer.contentViewController =[UIViewController new];
+    self.drawer.contentViewController.view.backgroundColor = [UIColor whiteColor];
+    self.drawer.contentViewController.preferredContentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*0.4);
+//    [self.drawer setPreferredContentSize:CGSizeMake(100, 100)];
+    self.drawer.headerViewController = [UIViewController new];
+    self.drawer.headerViewController.view.backgroundColor = [UIColor blackColor];
+    self.drawer.headerViewController.title = @"weiugryew";
+    UIView  *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,100,100)];
+    headerView.backgroundColor = [UIColor blackColor];
+    [headerView setHidden:NO];
+//    [self.drawer.headerViewController setView:headerView];
+    [self.drawer.headerViewController.view addSubview:headerView];
+    NSLog(self.drawer.headerViewController.beingPresented? @"ok" : @"not ok");
+    [self configureNav];
+    
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeft];
+    
 
 }
 
-- (void)appBarNavigationController:(MDCAppBarNavigationController *)navigationController
-       willAddAppBarViewController:(MDCAppBarViewController *)appBarViewController
-           asChildOfViewController:(UIViewController *)viewController {
-//    navigationController.translatesAutoresizingMaskIntoConstraints = NO
-    
-    
-    appBarViewController.headerView.backgroundColor = [UIColor whiteColor];
-    appBarViewController.headerView.minimumHeight = 80;
-
-    [self.view layoutIfNeeded];
+-(void) presentDrawer {
+    [self presentViewController:self.drawer animated:YES completion:nil];
 }
+
+- (void)didSwipe:(UISwipeGestureRecognizer*)swipe{
+
+    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
+        [self presentViewController:self.drawer animated:YES completion:nil];
+    }
+}
+
+-(void) configureNav {
+    MDCButton *favBtn = [[MDCButton alloc] init];
+    [favBtn setBackgroundColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [favBtn setBackgroundColor:[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.5] forState:UIControlEventTouchDown];
+    [favBtn setTitle:@"Favorites" forState:UIControlStateNormal];
+    favBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    [favBtn setTintColor:[UIColor blackColor]];
+    [favBtn setEnableRippleBehavior:NO];
+//    [favBtn setBackgroundColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.5] forState:UIControlStateHighlighted];
+    
+    [favBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [favBtn addTarget:self action:@selector(pushFavorites) forControlEvents:UIControlEventTouchUpInside];
+    favBtn.uppercaseTitle = NO;
+    [self.drawer setShouldIncludeSafeAreaInContentHeight:NO];
+    [self.drawer.contentViewController.view addSubview:favBtn];
+//    [self.drawer.view bringSubviewToFront:favBtn];
+
+    [self.drawer.contentViewController.view configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.flexDirection = YGFlexDirectionColumn;
+        layout.justifyContent = YGJustifyFlexStart;
+    }];
+    
+    [favBtn configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
+        layout.isEnabled = YES;
+        layout.width = YGPercentValue(100);
+        layout.height = YGPercentValue(7);
+        layout.maxHeight = YGPointValue(100);
+    }];
+    
+    [self.drawer.contentViewController.view.yoga applyLayoutPreservingOrigin:YES];
+}
+
+-(void) pushFavorites {
+    NSLog(@"ok");
+    [self.drawer dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 -(void) layoutbotView{
     [self.botView configureLayoutWithBlock:^(YGLayout * _Nonnull layout) {
